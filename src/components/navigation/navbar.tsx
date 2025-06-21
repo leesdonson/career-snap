@@ -3,22 +3,18 @@ import React from "react";
 import { ThemeToggle } from "./theme-toggle";
 const navLinks = [
   {
-    name: "Home",
-    path: "/",
+    name: "JobSeekers",
+    path: "/jobseekers",
   },
   {
-    name: "About",
-    path: "/about",
-  },
-  {
-    name: "Contact",
-    path: "/contact",
+    name: "Employers/ Post Job",
+    path: "/employers",
   },
 ];
 
 export const Navbar = () => {
   return (
-    <header className="flex w-full items-center justify-between py-2 px-10">
+    <header className="flex fixed top-0 bg-white/70 backdrop-blur-2xl dark:bg-neutral-950/70 left-0 right-0 z-20 w-full items-center justify-between py-2 px-10">
       <div className="">
         <p className="text-xl font-bold">careerSnap!</p>
       </div>
@@ -26,7 +22,7 @@ export const Navbar = () => {
         <nav className="flex items-center justify-center gap-5">
           {navLinks.map((link) => (
             <Link
-              className="hover:underline underline-offset-2 hover:text-blue-600"
+              className="shadow-sm p-2 text-sm hover:scale-105 transition-all duration-300 ease-in-out rounded border border-slate-600 shadow-blue-600 "
               key={link.name}
               href={link.path}
             >
