@@ -16,7 +16,9 @@ export const Navbar = () => {
   return (
     <header className="flex fixed top-0 bg-white/70 backdrop-blur-2xl dark:bg-neutral-950/70 left-0 right-0 z-20 w-full items-center justify-between py-2 px-10">
       <div className="">
-        <p className="text-xl font-bold">careerSnap!</p>
+        <Link href={"/"} className="text-xl font-bold">
+          careerSnap!
+        </Link>
       </div>
       <div className="flex items-center justify-center gap-5">
         <nav className="flex items-center justify-center gap-5">

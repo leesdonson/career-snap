@@ -25,7 +25,9 @@ export function DatePicker({
           id="date"
           className="w-48 justify-between border-slate-500 font-normal"
         >
-          {field.value ? field.value.toLocaleDateString() : "Set closing date"}
+          {field.value
+            ? new Date(field?.value)?.toDateString()
+            : "Set closing date"}
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>
@@ -35,7 +37,7 @@ export function DatePicker({
       >
         <Calendar
           mode="single"
-          selected={field.value}
+          selected={field?.value}
           captionLayout="dropdown"
           onSelect={(date) => {
             field.onChange(date);

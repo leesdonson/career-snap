@@ -4,7 +4,7 @@ import React from "react";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { jobPostingSchema, JobType } from "@/lib/types/job-posting";
+import { jobPostingSchema, JobStatus, JobType } from "@/lib/types/job-posting";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -16,26 +16,44 @@ import {
 } from "../ui/select";
 import { DatePicker } from "./date-picker";
 
-export const JobPostingForm = () => {
-  const form = useForm<z.infer<typeof jobPostingSchema>>({
+export const JobPostingForm = ({
+  setPreview,
+}: {
+  setPreview: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  type Posting = z.infer<typeof jobPostingSchema>;
+
+  const jobposting: Posting = localStorage.getItem("jobPosting")
+    ? JSON.parse(localStorage.getItem("jobPosting")!)
+    : {};
+
+  const form = useForm<Posting>({
     defaultValues: {
-      jobTitle: "",
-      jobId: "",
-      jobDescription: "",
-      jobBenefits: "",
-      jobLink: "",
-      jobLocation: "",
-      jobSalary: "",
-      jobRequirements: "",
-      jobType: JobType.FULL_TIME,
-      jobClosingDate: new Date(),
+      jobTitle: jobposting.jobTitle || "",
+      jobId: jobposting.jobId || "",
+      jobDescription: jobposting.jobDescription || "",
+      jobBenefits: jobposting.jobBenefits || "",
+      jobLink: jobposting.jobLink || "",
+      jobLocation: jobposting.jobLocation || "",
+      jobSalary: jobposting.jobSalary || "",
+      jobRequirements: jobposting.jobRequirements || "",
+      jobType: jobposting.jobType || JobType.FULL_TIME,
+      jobClosingDate: jobposting?.jobClosingDate || new Date(),
     },
     resolver: zodResolver(jobPostingSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof jobPostingSchema>) => {
-    console.log("clicked");
+  const onSubmit = (data: Posting) => {
     console.log(data);
+    localStorage.setItem(
+      "jobPosting",
+      JSON.stringify({
+        ...data,
+        companyName: "Microsoft Team",
+        jobStatus: JobStatus.OPEN,
+      })
+    );
+    setPreview(true);
   };
   return (
     <Form {...form}>
@@ -188,7 +206,6 @@ export const JobPostingForm = () => {
                       <SelectValue placeholder="Select a job type" />
                     </SelectTrigger>
                     <SelectContent className="border-slate-500 rounded p-2 focus:border-blue-600">
-                      {/* {/* <SelectItem value="FULL_TIME">Full Time</SelectItem> */}
                       <SelectItem value={JobType.FULL_TIME}>
                         Full Time
                       </SelectItem>

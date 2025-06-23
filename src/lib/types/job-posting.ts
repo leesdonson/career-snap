@@ -25,8 +25,8 @@ export type JobList = {
   jobSalary: string;
   jobType: JobType;
   jobStatus: JobStatus;
-  jobPostingDate: string;
-  jobClossingDate: string;
+  jobPostingDate: Date;
+  jobClosingDate: Date;
 };
 
 export const jobPostingSchema = z.object({
