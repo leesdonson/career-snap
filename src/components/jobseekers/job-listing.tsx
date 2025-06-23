@@ -9,7 +9,7 @@ import { JobList } from "@/lib/types/job-posting";
 
 export const JobListing = ({ jobList }: { jobList: JobList }) => {
   return (
-    <div className="flex flex-col border border-slate-600 rounded-md p-5">
+    <div className="flex bg-white/50 dark:bg-black/50 flex-col border border-slate-600 rounded-md p-5">
       {/* header */}
       <header className="flex items-center justify-center gap-5">
         <h2 className="h-10 w-10 text-lg font-bold flex items-center justify-center border border-slate-600 rounded-full p-2">
@@ -81,8 +81,11 @@ export const JobListing = ({ jobList }: { jobList: JobList }) => {
         </div>
 
         <footer className="text-sm flex italic items-center justify-between">
-          <p>Posted on : {jobList.jobPostingDate}</p>
-          <p>Application Closing on : {jobList.jobClossingDate}</p>
+          <p>Posted on : {new Date(jobList.jobPostingDate)?.toDateString()}</p>
+          <p>
+            Application Closing on :{" "}
+            {new Date(jobList.jobClosingDate)?.toDateString()}
+          </p>
         </footer>
       </main>
     </div>
