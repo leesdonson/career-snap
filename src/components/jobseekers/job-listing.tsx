@@ -1,4 +1,3 @@
-import { JobList } from "@/lib/job-lists";
 import React from "react";
 import {
   BookOpenCheck,
@@ -6,6 +5,7 @@ import {
   HandHeart,
   CircleDollarSign,
 } from "lucide-react";
+import { JobList } from "@/lib/types/job-posting";
 
 export const JobListing = ({ jobList }: { jobList: JobList }) => {
   return (
@@ -81,8 +81,8 @@ export const JobListing = ({ jobList }: { jobList: JobList }) => {
         </div>
 
         <footer className="text-sm flex italic items-center justify-between">
-          <p>Posted on :{jobList.jobPostingDate}</p>
-          <p>Application Closing on :{jobList.jobClossingDate}</p>
+          <p>Posted on : {jobList.jobPostingDate}</p>
+          <p>Application Closing on : {jobList.jobClossingDate}</p>
         </footer>
       </main>
     </div>

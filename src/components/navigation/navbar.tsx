@@ -8,7 +8,7 @@ const navLinks = [
   },
   {
     name: "Employers/ Post Job",
-    path: "/employers",
+    path: "/job-posting",
   },
 ];
 

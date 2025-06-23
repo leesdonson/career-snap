@@ -1,31 +1,5 @@
-export enum JobStatus {
-  OPEN = "OPEN",
-  CLOSED = "CLOSED",
-}
+import { JobList, JobStatus, JobType } from "./types/job-posting";
 
-export enum JobType {
-  FULL_TIME = "FULL_TIME",
-  PART_TIME = "PART_TIME",
-  INTERNSHIP = "INTERNSHIP",
-  CONTRACT = "CONTRACT",
-}
-
-export type JobList = {
-  jobId: string;
-  companyLogo: string;
-  companyName: string;
-  jobTitle: string;
-  jobLocation: string;
-  jobLink: string;
-  jobDescription: string;
-  jobRequirements: string;
-  jobBenefits: string;
-  jobSalary: string;
-  jobType: JobType;
-  jobStatus: JobStatus;
-  jobPostingDate: string;
-  jobClossingDate: string;
-};
 export const jobLists: JobList[] = [
   {
     jobId: "1hdwudabhhd",

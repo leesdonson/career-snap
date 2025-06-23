@@ -1,0 +1,11 @@
+import { JobPostingForm } from "@/components/jobposts/jobposting-form";
+
+const JobPostingPage = () => {
+  return (
+    <div className="w-full bg-neutral-100 dark:bg-transparent p-2  mt-4 flex items-center justify-center flex-col">
+      <JobPostingForm />
+    </div>
+  );
+};
+
+export default JobPostingPage;
