@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import { ThemeToggle } from "./theme-toggle";
-const navLinks = [
+import { MobileMenu } from "./mobile-menu";
+
+export const navLinks = [
   {
     name: "JobSeekers",
     path: "/jobseekers",
@@ -21,7 +23,7 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center justify-center gap-5">
-        <nav className="flex items-center justify-center gap-5">
+        <nav className="md:flex items-center justify-center hidden  gap-5">
           {navLinks.map((link) => (
             <Link
               className="shadow-sm p-2 text-sm hover:scale-105 transition-all duration-300 ease-in-out rounded border border-slate-600 shadow-blue-600 "
@@ -32,6 +34,10 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
+
+        <div className="md:hidden block">
+          <MobileMenu />
+        </div>
         <ThemeToggle />
       </div>
     </header>

@@ -21,7 +21,7 @@ export const HeroSection = () => {
           <span className="text-medium font-bold">CareerSnap!</span> is a job
           search tool that helps you find the right job for you.
         </p>
-        <Link href="/auth/signin" className="px-10 rounded py-5 w-full">
+        <Link href="/auth/sign-in" className="px-10 rounded py-5 w-full">
           <Button className="px-10 rounded py-5 w-full">Get Started</Button>
         </Link>
       </div>
