@@ -6,6 +6,7 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 import { JobList } from "@/lib/types/job-posting";
+import { Button } from "../ui/button";
 
 export const JobListing = ({ jobList }: { jobList: JobList }) => {
   return (
@@ -79,7 +80,42 @@ export const JobListing = ({ jobList }: { jobList: JobList }) => {
             Job Status: <span>{jobList.jobStatus}</span>
           </p>
         </div>
-
+        <div className="py-2">
+          {jobList.jobLink && jobList.hrEmail ? (
+            <div className="flex items-center justify-between gap-5">
+              <a
+                className="text-sn"
+                href={jobList.jobLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="rounded">Apply Now</Button>
+              </a>
+              <div className="text-sm">
+                or send your resume with a cover letter and supporting documents
+                to <span className="font-bold">{jobList.hrEmail}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between gap-5">
+              {jobList.hrEmail ? (
+                <div className="text-sm">
+                  Send your resume with a cover letter and supporting documents
+                  to <span className="font-bold">{jobList.hrEmail}</span>
+                </div>
+              ) : (
+                <a
+                  className="text-sn"
+                  href={jobList.jobLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="rounded">Apply Now</Button>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
         <footer className="text-sm flex italic items-center justify-between">
           <p>Posted on : {new Date(jobList.jobPostingDate)?.toDateString()}</p>
           <p>

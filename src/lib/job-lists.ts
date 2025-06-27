@@ -6,6 +6,7 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/A7F3D0/1F2937?text=TechCorp",
     companyName: "TechCorp Innovations",
     jobTitle: "Senior Software Engineer",
+    hrEmail: "zv2Wf@textcorp.com",
     jobLocation: "San Francisco, CA",
     jobLink: "https://techcorp.com/careers/senior-software-engineer-sf",
     jobDescription:
@@ -43,9 +44,9 @@ export const jobLists: JobList[] = [
     jobId: "3hdwudabhhjtsdad",
     companyLogo: "https://placehold.co/100x100/DBEAFE/1E40AF?text=InnovateX",
     companyName: "InnovateX Labs",
+    hrEmail: "zv2Wf@innovatexlabs.com",
     jobTitle: "Data Scientist Intern",
     jobLocation: "Boston, MA",
-    jobLink: "https://innovatex.com/careers/data-scientist-intern",
     jobDescription:
       "Assist in data collection, cleaning, and analysis. Develop predictive models and contribute to research projects.",
     jobRequirements:
@@ -82,6 +83,7 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/E0F7FA/00796B?text=EduCorp",
     companyName: "EduCorp Learning",
     jobTitle: "Content Writer (Contract)",
+    hrEmail: "zv2Wf@educorp.com",
     jobLocation: "Remote",
     jobLink: "https://educorp.com/careers/content-writer-remote",
     jobDescription:
@@ -100,6 +102,7 @@ export const jobLists: JobList[] = [
     jobId: "6hdwudwsrab35erhd",
     companyLogo: "https://placehold.co/100x100/D1FAE5/065F46?text=FinPros",
     companyName: "Financial Pros Inc.",
+    hrEmail: "zv2Wf@finpros.com",
     jobTitle: "Financial Analyst",
     jobLocation: "Chicago, IL",
     jobLink: "https://finpros.com/careers/financial-analyst-chicago",
@@ -139,6 +142,7 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/F0F9FF/0C4A6E?text=LogiSol",
     companyName: "Logistics Solutions Co.",
     jobTitle: "Logistics Coordinator",
+    hrEmail: "zv2Wf@logisol.com",
     jobLocation: "Dallas, TX",
     jobLink: "https://logisol.com/careers/logistics-coordinator",
     jobDescription:
@@ -177,6 +181,7 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/FEF2F2/DC2626?text=CreativeFlow",
     companyName: "CreativeFlow Design Studio",
     jobTitle: "Junior Graphic Designer",
+    hrEmail: "9K8oY@creativeflow.com",
     jobLocation: "Portland, OR",
     jobLink: "https://creativeflow.com/careers/junior-graphic-designer",
     jobDescription:
@@ -215,6 +220,7 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/FFFAE0/CA8A04?text=PrimeAuto",
     companyName: "Prime Auto Dealership",
     jobTitle: "Automotive Technician",
+    hrEmail: "zBt6A@primeauto.com",
     jobLocation: "Houston, TX",
     jobLink: "https://primeauto.com/jobs/automotive-technician",
     jobDescription:
@@ -252,6 +258,7 @@ export const jobLists: JobList[] = [
     jobId: "14hdwudwsrab35erhd",
     companyLogo: "https://placehold.co/100x100/EFF6FF/1E40AF?text=MediCare",
     companyName: "MediCare Clinic",
+    hrEmail: "zv2Wf@medicare.com",
     jobTitle: "Medical Assistant (Part-Time)",
     jobLocation: "Phoenix, AZ",
     jobLink: "https://medicare.org/jobs/medical-assistant-part-time",
@@ -291,8 +298,8 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/FDE68A/B45309?text=RetailEdge",
     companyName: "RetailEdge Solutions",
     jobTitle: "E-commerce Manager",
+    hrEmail: "zBt6A@retailedge.com",
     jobLocation: "Remote",
-    jobLink: "https://retailedge.com/jobs/ecommerce-manager-remote",
     jobDescription:
       "Oversee all aspects of our online store, including marketing, sales, and customer experience.",
     jobRequirements:
@@ -328,6 +335,7 @@ export const jobLists: JobList[] = [
     jobId: "18hdwudwsrab35erhd",
     companyLogo: "https://placehold.co/100x100/CCE3FF/1D4ED8?text=FutureEd",
     companyName: "FutureEd Academy",
+    hrEmail: "zBt6A@futureedacademy.com",
     jobTitle: "High School Teacher (Math)",
     jobLocation: "Austin, TX",
     jobLink: "https://futureed.edu/jobs/math-teacher-austin",
@@ -366,9 +374,9 @@ export const jobLists: JobList[] = [
     jobId: "20hdwudwsrab35erhd",
     companyLogo: "https://placehold.co/100x100/D0F0C0/3CB371?text=GreenThumb",
     companyName: "GreenThumb Landscaping",
+    hrEmail: "zBt6A@gtlandscaping.com",
     jobTitle: "Landscape Architect",
     jobLocation: "Charlotte, NC",
-    jobLink: "https://greenthumb.com/jobs/landscape-architect",
     jobDescription:
       "Design innovative and sustainable landscape solutions for commercial and residential projects.",
     jobRequirements:
@@ -405,8 +413,8 @@ export const jobLists: JobList[] = [
     companyLogo: "https://placehold.co/100x100/FEECEB/EF4444?text=FoodLink",
     companyName: "FoodLink Distribution",
     jobTitle: "Warehouse Associate",
+    hrEmail: "zBt6A@foodlink.com",
     jobLocation: "Indianapolis, IN",
-    jobLink: "https://foodlink.com/jobs/warehouse-associate",
     jobDescription:
       "Receive, store, and distribute food products. Maintain a clean and organized warehouse environment.",
     jobRequirements:

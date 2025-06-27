@@ -113,7 +113,44 @@ export const JobpostingPreview = ({
               </span>
             </p>
           </div>
-
+          <div className="py-2">
+            {jobposting.jobLink &&
+            jobposting.hrEmail &&
+            jobposting.mailInstruction ? (
+              <div className="flex items-center justify-between gap-5">
+                <a
+                  className="text-sn"
+                  href={jobposting.jobLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="rounded">Apply Now</Button>
+                </a>
+                <div className="text-sm">
+                  {jobposting.mailInstruction}
+                  <span className="font-bold"> {jobposting.hrEmail}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between gap-5">
+                {jobposting.hrEmail && jobposting.mailInstruction ? (
+                  <div className="text-sm">
+                    {jobposting.mailInstruction}
+                    <span className="font-bold">{jobposting.hrEmail}</span>
+                  </div>
+                ) : (
+                  <a
+                    className="text-sn"
+                    href={jobposting.jobLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="rounded">Apply Now</Button>
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
           <footer className="text-sm mb-5 flex italic items-center justify-between">
             <p>Posted on : {new Date().toDateString()}</p>
             <p>

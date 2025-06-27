@@ -15,10 +15,11 @@ export enum JobType {
 export type JobList = {
   jobId: string;
   companyLogo: string;
+  hrEmail?: string;
   companyName: string;
   jobTitle: string;
   jobLocation: string;
-  jobLink: string;
+  jobLink?: string;
   jobDescription: string;
   jobRequirements: string;
   jobBenefits: string;
@@ -27,6 +28,7 @@ export type JobList = {
   jobStatus: JobStatus;
   jobPostingDate: Date;
   jobClosingDate: Date;
+  mailInstruction?: string;
 };
 
 export const jobPostingSchema = z.object({
@@ -56,4 +58,6 @@ export const jobPostingSchema = z.object({
     { message: "Please select a job type." }
   ),
   jobClosingDate: z.date(),
+  hrEmail: z.string().optional(),
+  mailInstruction: z.string().optional(),
 });

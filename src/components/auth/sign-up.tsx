@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-
+import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
@@ -57,7 +57,14 @@ const SignUpForm = () => {
           <span className="text-lg font-bold">Sign Up</span>
         </div>
         <div className="mb-5">
-          <Button className="w-full rounded">Sign Up with Google</Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+          >
+            <FcGoogle className="mr-3 h-5 w-5 flex items-center" />
+            Sign Up with Google
+          </Button>
         </div>
         <div className="relative mb-5 flex items-center justify-center">
           <div className="w-full h-[1px] bg-slate-500" />
@@ -108,7 +115,11 @@ const SignUpForm = () => {
             Already have an account? Sign in here.
           </Link>
         </div>
-        <Button type="submit" className="rounded p-2">
+        <Button
+          type="submit"
+          variant={"outline"}
+          className="rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+        >
           Sign Up
         </Button>
         <small className="text-sm">

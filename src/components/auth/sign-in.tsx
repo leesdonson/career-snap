@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -57,7 +58,14 @@ const SignInForm = () => {
           <span className="text-lg font-bold">Sign in</span>
         </div>
         <div className="mb-5">
-          <Button className="w-full rounded">Sign in with Google</Button>
+          <Button
+            type="button"
+            variant={"outline"}
+            className="w-full rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+          >
+            <FcGoogle className="mr-3 h-5 w-5 flex items-center" />
+            Sign in with Google
+          </Button>
         </div>
         <div className="relative mb-5 flex items-center justify-center">
           <div className="w-full h-[1px] bg-slate-500" />
@@ -111,7 +119,11 @@ const SignInForm = () => {
             {"Don't "}have an account yet? Sign up here.
           </Link>
         </div>
-        <Button type="submit" className="rounded p-2">
+        <Button
+          type="submit"
+          variant={"outline"}
+          className="rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+        >
           Sign in
         </Button>
       </form>

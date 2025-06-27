@@ -34,6 +34,8 @@ export const JobPostingForm = ({
       jobDescription: jobposting.jobDescription || "",
       jobBenefits: jobposting.jobBenefits || "",
       jobLink: jobposting.jobLink || "",
+      hrEmail: jobposting.hrEmail || "",
+      mailInstruction: jobposting.mailInstruction || "",
       jobLocation: jobposting.jobLocation || "",
       jobSalary: jobposting.jobSalary || "",
       jobRequirements: jobposting.jobRequirements || "",
@@ -61,7 +63,10 @@ export const JobPostingForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full max-w-2xl mx-auto bg-white dark:bg-transparent mt-10 flex items-center border dark:border-slate-600 border-slate-400 rounded-lg p-4 justify-center flex-col"
       >
-        <p className="text-lg font-bold p-2 mb-5">Job Posting Form</p>
+        <div className="mb-5">
+          <p className="text-lg font-bold">Job Posting Form</p>
+          <small>Fields marked with * are required.</small>
+        </div>
         <div className="flex w-full items-center justify-center flex-col gap-5 mb-8">
           <div className="flex w-full items-center justify-center gap-3">
             <FormField
@@ -240,13 +245,46 @@ export const JobPostingForm = ({
               )}
             />
           </div>
+          <div className="flex w-full flex-col items-center justify-center gap-3">
+            <FormField
+              name="hrEmail"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>HR Email</FormLabel>
+                  <input
+                    {...field}
+                    className="w-full border outline-none border-slate-500 rounded p-2 focus:border-blue-600"
+                    autoComplete="off"
+                    type="text"
+                    placeholder="hr email (optional)"
+                  />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="mailInstruction"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>How to Apply</FormLabel>
+                  <textarea
+                    {...field}
+                    className="w-full border outline-none border-slate-500 rounded p-2 focus:border-blue-600"
+                    autoComplete="off"
+                    placeholder="Short instruction on how to apply (optional)"
+                  />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="flex w-full items-center justify-center gap-3">
             <FormField
               name="jobClosingDate"
               control={form.control}
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Job Closing Date</FormLabel>
+                  <FormLabel>Job Closing Date *</FormLabel>
                   <DatePicker field={field} />
                   <FormMessage />
                 </FormItem>
@@ -254,7 +292,10 @@ export const JobPostingForm = ({
             />
           </div>
         </div>
-        <Button className="w-full rounded" type="submit">
+        <Button
+          className="w-full rounded text-white bg-neutral-800"
+          type="submit"
+        >
           Preview
         </Button>
       </form>

@@ -10,8 +10,8 @@ export const Company = () => {
       <div className="absolute -z-10 bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
 
       {/* Content */}
-      <div className="max-w-xl mx-auto w-full">
-        <h2 className="text-4xl font-bold mb-5">
+      <div className="max-w-xl mx-auto w-full p-3">
+        <h2 className=" text-3xl text-center md:text-left md:text-4xl font-bold mb-5">
           Sign Up to get
           <br />
           <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
