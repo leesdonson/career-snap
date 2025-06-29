@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileMenu } from "./mobile-menu";
+import { UserStatus } from "../auth/users/user-status";
 
 export const navLinks = [
   {
@@ -34,7 +35,9 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
-
+        <div className="">
+          <UserStatus />
+        </div>
         <div className="md:hidden block">
           <MobileMenu />
         </div>

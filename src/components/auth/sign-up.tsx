@@ -17,6 +17,9 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { signUp } from "@/actions/sign-up";
+import { Loading } from "../ui/loading";
 
 const signUpSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -36,9 +39,24 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof signUpSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
+    try {
+      const payload = new FormData();
+      payload.append("email", data.email);
+      payload.append("password", data.password);
+
+      const response = await signUp(payload);
+      console.log(response);
+
+      if (response) {
+        router.replace("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const isSubmitting = form.formState.isSubmitting;
 
   return (
     <Form {...form}>
@@ -58,6 +76,7 @@ const SignUpForm = () => {
         </div>
         <div className="mb-5">
           <Button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
             type="button"
             variant="outline"
             className="w-full rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
@@ -118,9 +137,10 @@ const SignUpForm = () => {
         <Button
           type="submit"
           variant={"outline"}
+          disabled={isSubmitting}
           className="rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
         >
-          Sign Up
+          {isSubmitting ? <Loading /> : "Sign Up"}
         </Button>
         <small className="text-sm">
           By signing up, you agree to our{" "}

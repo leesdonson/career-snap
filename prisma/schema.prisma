@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String?   @db.VarChar(255)
+  image           String?
+  email           String    @unique @db.VarChar(85)
+  password        String?   @db.VarChar(255)
+  educationLevel  String?   @map("education_level") @db.VarChar(255)
+  emailVerified   DateTime? @map("email_verified")
+  skills          String[]
+  experiences     String[]
+  companiesWorked String[]  @map("companies_worked")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedA  DateTime @updatedAt @map("updated_at")
+
+  // Relationship
+  jobLikes        JobPostLike[]
+  jobPostComments JobPostComment[]
+  accounts        Account[]
+  sessions        Session[]
+  Authenticator   Authenticator[]
+
+  @@index([id])
+  @@map("users")
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Company {
+  id                    String  @id @default(cuid())
+  companyName           String  @map("company_name") @db.VarChar(255)
+  companyEmail          String  @unique @map("company_email") @db.VarChar(255)
+  companyWebsite        String? @map("company_website")
+  companyAddress        String  @map("company_address")
+  companyLogo           String  @map("company_logo")
+  bizRegistrationNumber Int     @map("biz_registration_number")
+  taxIdNumber           Int     @map("tax_id_number")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relationship
+  jobPosts     JobPost[]
+  commentReply CommentReply[]
+
+  @@index([id, companyEmail])
+  @@map("companies")
+}
+
+enum JobType {
+  INTERNSHIP
+  PART_TIME
+  CONTRACT
+  FULL_TIME
+}
+
+enum JobStatus {
+  OPEN
+  CLOSE
+}
+
+model JobPost {
+  id                 String    @id @default(cuid())
+  jobTitle           String    @map("job_title")
+  jobId              String    @map("job_id")
+  description        String    @db.Text
+  requirements       String[]
+  benefits           String[]
+  location           String
+  applicationLink    String?   @map("application_link")
+  jobType            JobType   @default(FULL_TIME) @map("job_type")
+  annualSalary       Decimal?  @map("annual_salary")
+  hrEmail            String?   @map("hr_email")
+  instructionToApply String?   @map("instruction_to_apply")
+  closingDate        DateTime  @map("closing_date")
+  companyId          String
+  status             JobStatus @default(OPEN)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relationship
+  company  Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  likes    JobPostLike[]
+  comments JobPostComment[]
+
+  @@index([id, jobId])
+  @@map("job_posts")
+}
+
+model JobPostLike {
+  id        Int     @id @default(autoincrement())
+  likes     Int
+  userId    String  @map("user_id")
+  jobPostId String  @map("job_post_id")
+  jobPost   JobPost @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("job_post_likes")
+}
+
+model JobPostComment {
+  id        Int     @id @default(autoincrement())
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobPostId String  @map("job_post_id")
+  jobPost   JobPost @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("job_post_comments")
+}
+
+model CommentReply {
+  id        Int      @id @default(autoincrement())
+  companyId String   @map("company_id")
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("comment_replies")
+}

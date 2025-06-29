@@ -18,6 +18,8 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -37,14 +39,52 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof signInSchema>) => {
-    console.log(data);
+  const handleCredentialsSignin = async (
+    data: z.infer<typeof signInSchema>
+  ) => {
+    const result = await signIn("credentials", {
+      ...data,
+      redirect: false,
+      callbackUrl: "/",
+    });
+    if (result?.error) {
+      toast.error("Something went wrong.", {
+        style: {
+          backgroundColor: "#c9080f",
+          color: "#ffffff",
+        },
+      });
+    }
+
+    if (result?.ok && !result.error) {
+      toast.success("Login Success.", {
+        style: {
+          backgroundColor: "#17c40e",
+          color: "#ffffff",
+        },
+      });
+      router.replace(result.url || "/");
+    }
+  };
+
+  const handleGoogleSignin = async () => {
+    const result = await signIn("google", {
+      callbackUrl: "/",
+    });
+    if (result?.ok) {
+      toast.success("Login Success.", {
+        style: {
+          backgroundColor: "#17c40e",
+          color: "#ffffff",
+        },
+      });
+    }
   };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(handleCredentialsSignin)}
         className="flex relative w-full p-5 rounded-lg flex-col gap-4 border border-slate-500"
       >
         <div
@@ -59,6 +99,7 @@ const SignInForm = () => {
         </div>
         <div className="mb-5">
           <Button
+            onClick={handleGoogleSignin}
             type="button"
             variant={"outline"}
             className="w-full rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
