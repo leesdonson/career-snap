@@ -1,7 +1,5 @@
 import React from "react";
-import { Button } from "../ui/button";
 import { SearchBar } from "./search-bar";
-import Link from "next/link";
 
 export const HeroSection = () => {
   return (

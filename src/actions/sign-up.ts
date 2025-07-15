@@ -44,7 +44,10 @@ export const signUp = async (formData: FormData) => {
         password: hashedPassword,
       },
     });
-    const { password, ...rest } = user;
+    const rest = {
+      id: user.id,
+      email: user.email,
+    };
 
     console.log(rest);
 

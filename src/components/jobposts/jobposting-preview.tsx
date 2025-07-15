@@ -37,20 +37,20 @@ export const JobpostingPreview = ({
         {/* header */}
         <header className="flex items-center justify-center gap-5">
           <h2 className="h-10 w-10 text-lg font-bold flex items-center justify-center border border-slate-600 rounded-full p-2">
-            {jobposting.companyName.split(" ")[0].charAt(0).toUpperCase() +
-              jobposting.companyName.split(" ")[1].charAt(0).toUpperCase()}
+            {jobposting?.companyName.split(" ")[0].charAt(0).toUpperCase() +
+              jobposting?.companyName.split(" ")[1].charAt(0).toUpperCase()}
           </h2>
-          <p>{jobposting.companyName}</p>
+          <p>{jobposting?.companyName}</p>
         </header>
         <div className="border-1 w-full my-3 border-slate-600" />
         {/* content */}
         <main className="flex flex-col gap-5">
           <div className="flex items-center flex-col justify-center">
             <div className="flex items-center justify-center p-3 gap-5">
-              <h3>Job Title: {jobposting.jobTitle}</h3> |{" "}
-              <p>Location: {jobposting.jobLocation}</p>
+              <h3>Job Title: {jobposting?.jobTitle}</h3> |{" "}
+              <p>Location: {jobposting?.jobLocation}</p>
             </div>
-            <small>Job ID: {jobposting.jobId}</small>
+            <small>Job ID: {jobposting?.jobId}</small>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -58,7 +58,7 @@ export const JobpostingPreview = ({
               <BookOpenCheck className="mr-3 h-5 w-5 flex items-center" />
               Job Description:
             </p>
-            <p className="">{jobposting.jobDescription}</p>
+            <p className="">{jobposting?.jobDescription}</p>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -67,7 +67,7 @@ export const JobpostingPreview = ({
               Job Requirements
             </p>
             <ul className="list-disc ml-5">
-              {jobposting.jobRequirements
+              {jobposting?.jobRequirements
                 .split(",")
                 .map((requirement, index) => (
                   <li className="capitalize" key={index}>
@@ -95,18 +95,18 @@ export const JobpostingPreview = ({
             <p className="font-semibold flex items-center">
               <CircleDollarSign className="mr-2 h-5 w-5" /> Salary
             </p>
-            <p>${jobposting.jobSalary}</p>
+            <p>${jobposting?.jobSalary}</p>
           </div>
           <div className="flex items-center justify-between">
             <p>
-              Job Type: <span>{jobposting.jobType}</span>
+              Job Type: <span>{jobposting?.jobType}</span>
             </p>
             <p>
               Job Status:{" "}
               <span
                 className={cn("", {
-                  "text-green-600": jobposting.jobStatus === JobStatus.OPEN,
-                  "text-red-600": jobposting.jobStatus === JobStatus.CLOSED,
+                  "text-green-600": jobposting?.jobStatus === JobStatus.OPEN,
+                  "text-red-600": jobposting?.jobStatus === JobStatus.CLOSED,
                 })}
               >
                 {JobStatus.OPEN}
@@ -114,34 +114,34 @@ export const JobpostingPreview = ({
             </p>
           </div>
           <div className="py-2">
-            {jobposting.jobLink &&
-            jobposting.hrEmail &&
-            jobposting.mailInstruction ? (
+            {jobposting?.jobLink &&
+            jobposting?.hrEmail &&
+            jobposting?.mailInstruction ? (
               <div className="flex items-center justify-between gap-5">
                 <a
                   className="text-sn"
-                  href={jobposting.jobLink}
+                  href={jobposting?.jobLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button className="rounded">Apply Now</Button>
                 </a>
                 <div className="text-sm">
-                  {jobposting.mailInstruction}
-                  <span className="font-bold"> {jobposting.hrEmail}</span>
+                  {jobposting?.mailInstruction}
+                  <span className="font-bold"> {jobposting?.hrEmail}</span>
                 </div>
               </div>
             ) : (
               <div className="flex items-center justify-between gap-5">
-                {jobposting.hrEmail && jobposting.mailInstruction ? (
+                {jobposting?.hrEmail && jobposting.mailInstruction ? (
                   <div className="text-sm">
                     {jobposting.mailInstruction}
-                    <span className="font-bold">{jobposting.hrEmail}</span>
+                    <span className="font-bold">{jobposting?.hrEmail}</span>
                   </div>
                 ) : (
                   <a
                     className="text-sn"
-                    href={jobposting.jobLink}
+                    href={jobposting?.jobLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -155,7 +155,7 @@ export const JobpostingPreview = ({
             <p>Posted on : {new Date().toDateString()}</p>
             <p>
               Application Closing on :{" "}
-              {new Date(jobposting.jobClosingDate)?.toDateString()}
+              {new Date(jobposting?.jobClosingDate)?.toDateString()}
             </p>
           </footer>
           <div className="flex w-full  items-center justify-center gap-5">

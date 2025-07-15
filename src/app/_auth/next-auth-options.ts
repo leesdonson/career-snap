@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         if (user) {
           const matchedPassword = await bcrypt.compare(
             credentials.password,
-            user?.password!
+            user?.password as string
           );
           if (matchedPassword) {
             return user;
@@ -74,7 +74,10 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Failed to create new user.");
           }
 
-          const { password, ...rest } = newUser;
+          const rest = {
+            id: newUser.id,
+            email: newUser.email,
+          };
           return rest;
         }
         return null;

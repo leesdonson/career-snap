@@ -24,7 +24,7 @@ export const JobPostingForm = ({
   type Posting = z.infer<typeof jobPostingSchema>;
 
   const jobposting: Posting = localStorage.getItem("jobPosting")
-    ? JSON.parse(localStorage.getItem("jobPosting")!)
+    ? JSON.parse(localStorage.getItem("jobPosting") as string)
     : {};
 
   const form = useForm<Posting>({

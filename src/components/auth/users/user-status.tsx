@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { redirect } from "next/navigation";
 import { signOut } from "next-auth/react";
 // import {
 //   Dialog,

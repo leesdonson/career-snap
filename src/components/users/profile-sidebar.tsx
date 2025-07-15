@@ -24,16 +24,24 @@ export const Profile = () => {
         <div className="relative flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 ring-2 ring-blue-500 rounded-full">
           {session?.user?.image ? (
             <Image
-              src={session?.user?.image!}
-              alt={session?.user.name!}
+              src={session?.user?.image}
+              alt={session?.user?.name as string}
               fill
               sizes="100%"
               className="rounded-full object-center object-cover"
             />
           ) : (
             <p>
-              {session?.user?.name?.split(" ")[0].charAt(0).toUpperCase() +
-                session?.user?.name?.split(" ")[1].charAt(0).toUpperCase()!}
+              {
+                ((session?.user?.name
+                  ?.split(" ")[0]
+                  .charAt(0)
+                  .toUpperCase() as string) +
+                  session?.user?.name
+                    ?.split(" ")[1]
+                    .charAt(0)
+                    .toUpperCase()) as string
+              }
             </p>
           )}
         </div>

@@ -9,9 +9,9 @@ export function middleware(req: NextRequest) {
   response.headers.set("X-content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-XSS-Protection", "1; mode=block");
-  return response;
+  return NextResponse.redirect(new URL("/", req.url));
 }
 
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/jobposts", "/users/:path*"],
 };

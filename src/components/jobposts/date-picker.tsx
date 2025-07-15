@@ -10,10 +10,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+// date picker
 export function DatePicker({
   field,
 }: {
-  field: { onChange: any; value: any };
+  field: {
+    onChange: (date: Date | undefined) => void;
+    value: Date | undefined;
+  };
 }) {
   const [open, setOpen] = React.useState(false);
 
