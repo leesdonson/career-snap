@@ -26,16 +26,22 @@ import { signOut } from "next-auth/react";
 // import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const UserStatus = () => {
   const { data: session, status } = useSession();
-  console.log(session);
-
-  if (status === "unauthenticated") return redirect("/auth/sign-in");
-
+  // console.log(session);
   if (status === "loading") {
     <Loading />;
   }
+
+  if (status === "unauthenticated")
+    return (
+      <div className="">
+        <Button>Sign in</Button>
+      </div>
+    );
 
   const handleSignOut = async () => {
     await signOut({
@@ -53,11 +59,15 @@ export const UserStatus = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         {session?.user?.image ? (
-          <Image
-            src={session.user.image}
-            alt={session.user.name!}
-            className="h-7 w-7 rounded-full"
-          />
+          <div className="relative h-7 w-7">
+            <Image
+              src={session.user.image}
+              alt={session.user.name!}
+              fill
+              sizes="100%"
+              className="rounded-full"
+            />
+          </div>
         ) : (
           <CircleUserRound className="h-7 w-7" />
         )}
@@ -66,7 +76,9 @@ export const UserStatus = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/users/${session?.user?.id}`}>Profile</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
 

@@ -6,7 +6,7 @@ import { UserStatus } from "../auth/users/user-status";
 
 export const navLinks = [
   {
-    name: "JobSeekers",
+    name: "Find Jobs",
     path: "/jobseekers",
   },
   {
@@ -35,9 +35,9 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
-        <div className="">
-          <UserStatus />
-        </div>
+        {/* Usesr status*/}
+        <UserStatus />
+
         <div className="md:hidden block">
           <MobileMenu />
         </div>

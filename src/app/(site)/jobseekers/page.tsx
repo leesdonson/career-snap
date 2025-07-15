@@ -19,7 +19,7 @@ const JobseekersPage = () => {
         <SearchResultCard />
       </div> */}
       <Suspense fallback={<Loading />}>
-        <div className="mt-10 grid grid-cols-1 gap-5 max-w-2xl w-full mx-auto">
+        <div className="mt-12 grid grid-cols-1 gap-5 max-w-2xl w-full mx-auto">
           {jobLists.map((jobList) => (
             <JobListing key={jobList.jobId} jobList={jobList} />
           ))}

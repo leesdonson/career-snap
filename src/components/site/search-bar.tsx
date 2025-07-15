@@ -23,7 +23,7 @@ export const SearchBar = () => {
   return (
     <Form {...form}>
       <form
-        className="flex max-w-xl bg-white/40 dark:bg-black/40 w-full p-4 rounded-md shadow-2xl border border-slate-400 dark:border-neutral-600 shadow-blue-600"
+        className="flex max-w-xl bg-white/60 dark:bg-black/40 w-full p-2 rounded-md  border border-slate-400 dark:border-neutral-600"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField

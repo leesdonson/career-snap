@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: "Where your Career Starts and Grow.",
 };
 
-export default function RootLayout({
+export default function UsersLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
