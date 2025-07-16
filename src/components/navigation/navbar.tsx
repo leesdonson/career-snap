@@ -19,7 +19,10 @@ export const Navbar = () => {
   return (
     <header className="flex fixed top-0 bg-white/70 backdrop-blur-2xl dark:bg-neutral-950/70 left-0 right-0 z-20 w-full items-center justify-between py-2 px-3 md:px-10">
       <div className="">
-        <Link href={"/"} className="text-xl font-bold">
+        <Link
+          href={"/"}
+          className="text-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent font-bold"
+        >
           careerSnap
         </Link>
       </div>

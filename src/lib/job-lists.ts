@@ -3,7 +3,7 @@ import { JobList, JobStatus, JobType } from "./types/job-posting";
 export const jobLists: JobList[] = [
   {
     jobId: "1hdwudabhhd",
-    companyLogo: "https://placehold.co/100x100/A7F3D0/1F2937?text=TechCorp",
+    companyLogo: "/codecommit2.png",
     companyName: "TechCorp Innovations",
     jobTitle: "Senior Software Engineer",
     hrEmail: "zv2Wf@textcorp.com",
@@ -23,7 +23,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "2hdwzdsdcvcudabhhd",
-    companyLogo: "https://placehold.co/100x100/FEE2E2/991B1B?text=GlobalBiz",
+    companyLogo: "/codecommit2.png",
     companyName: "GlobalBiz Solutions",
     jobTitle: "Marketing Specialist",
     jobLocation: "New York, NY",
@@ -42,7 +42,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "3hdwudabhhjtsdad",
-    companyLogo: "https://placehold.co/100x100/DBEAFE/1E40AF?text=InnovateX",
+    companyLogo: "/codecommit2.png",
     companyName: "InnovateX Labs",
     hrEmail: "zv2Wf@innovatexlabs.com",
     jobTitle: "Data Scientist Intern",
@@ -61,7 +61,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "4hdwudab35erhd",
-    companyLogo: "https://placehold.co/100x100/FFFBEB/92400E?text=HealthNet",
+    companyLogo: "/codecommit2.png",
     companyName: "HealthNet Services",
     jobTitle: "Registered Nurse (RN)",
     jobLocation: "Los Angeles, CA",
@@ -80,7 +80,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "5hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/E0F7FA/00796B?text=EduCorp",
+    companyLogo: "/codecommit2.png",
     companyName: "EduCorp Learning",
     jobTitle: "Content Writer (Contract)",
     hrEmail: "zv2Wf@educorp.com",
@@ -100,7 +100,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "6hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/D1FAE5/065F46?text=FinPros",
+    companyLogo: "/codecommit2.png",
     companyName: "Financial Pros Inc.",
     hrEmail: "zv2Wf@finpros.com",
     jobTitle: "Financial Analyst",
@@ -120,7 +120,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "7hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FFE4E6/BE123C?text=RetailHub",
+    companyLogo: "/codecommit2.png",
     companyName: "RetailHub Stores",
     jobTitle: "Retail Store Manager",
     jobLocation: "Miami, FL",
@@ -139,7 +139,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "8hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/F0F9FF/0C4A6E?text=LogiSol",
+    companyLogo: "/codecommit2.png",
     companyName: "Logistics Solutions Co.",
     jobTitle: "Logistics Coordinator",
     hrEmail: "zv2Wf@logisol.com",
@@ -159,7 +159,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "9hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/DCFCE7/15803D?text=GreenEco",
+    companyLogo: "/codecommit2.png",
     companyName: "GreenEco Energy",
     jobTitle: "Environmental Scientist",
     jobLocation: "Denver, CO",
@@ -178,7 +178,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "10hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FEF2F2/DC2626?text=CreativeFlow",
+    companyLogo: "/codecommit2.png",
     companyName: "CreativeFlow Design Studio",
     jobTitle: "Junior Graphic Designer",
     hrEmail: "9K8oY@creativeflow.com",
@@ -198,7 +198,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "11hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/ECFDF5/059669?text=CyberSec",
+    companyLogo: "/codecommit2.png",
     companyName: "CyberSec Solutions",
     jobTitle: "Cybersecurity Analyst",
     jobLocation: "Washington, D.C.",
@@ -217,7 +217,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "12hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FFFAE0/CA8A04?text=PrimeAuto",
+    companyLogo: "/codecommit2.png",
     companyName: "Prime Auto Dealership",
     jobTitle: "Automotive Technician",
     hrEmail: "zBt6A@primeauto.com",
@@ -237,7 +237,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "13hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/F3E8FF/7C3AED?text=BuildCorp",
+    companyLogo: "/codecommit2.png",
     companyName: "BuildCorp Construction",
     jobTitle: "Construction Project Manager",
     jobLocation: "Seattle, WA",
@@ -256,7 +256,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "14hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/EFF6FF/1E40AF?text=MediCare",
+    companyLogo: "/codecommit2.png",
     companyName: "MediCare Clinic",
     hrEmail: "zv2Wf@medicare.com",
     jobTitle: "Medical Assistant (Part-Time)",
@@ -276,7 +276,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "15hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FFEDD5/D97706?text=FoodieFare",
+    companyLogo: "/codecommit2.png",
     companyName: "FoodieFare Restaurant Group",
     jobTitle: "Executive Chef",
     jobLocation: "New Orleans, LA",
@@ -295,7 +295,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "16hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FDE68A/B45309?text=RetailEdge",
+    companyLogo: "/codecommit2.png",
     companyName: "RetailEdge Solutions",
     jobTitle: "E-commerce Manager",
     hrEmail: "zBt6A@retailedge.com",
@@ -314,7 +314,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "17hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/DCCFEF/6D28D9?text=AeroTech",
+    companyLogo: "/codecommit2.png",
     companyName: "AeroTech Aerospace",
     jobTitle: "Aerospace Engineer",
     jobLocation: "Cape Canaveral, FL",
@@ -333,7 +333,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "18hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/CCE3FF/1D4ED8?text=FutureEd",
+    companyLogo: "/codecommit2.png",
     companyName: "FutureEd Academy",
     hrEmail: "zBt6A@futureedacademy.com",
     jobTitle: "High School Teacher (Math)",
@@ -353,7 +353,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "19hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FDE2F2/E11DAE?text=SportZone",
+    companyLogo: "/codecommit2.png",
     companyName: "SportZone Athletics",
     jobTitle: "Sports Marketing Intern",
     jobLocation: "Denver, CO",
@@ -372,7 +372,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "20hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/D0F0C0/3CB371?text=GreenThumb",
+    companyLogo: "/codecommit2.png",
     companyName: "GreenThumb Landscaping",
     hrEmail: "zBt6A@gtlandscaping.com",
     jobTitle: "Landscape Architect",
@@ -391,7 +391,7 @@ export const jobLists: JobList[] = [
   },
   {
     jobId: "21hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/E5E7EB/4B5563?text=LegalAid",
+    companyLogo: "/codecommit2.png",
     companyName: "LegalAid Alliance",
     jobTitle: "Paralegal (Part-Time)",
     jobLocation: "Sacramento, CA",
@@ -404,13 +404,13 @@ export const jobLists: JobList[] = [
       "Flexible hours, paid time off, professional development, meaningful work.",
     jobSalary: "$28 - $35/hour",
     jobType: JobType.PART_TIME,
-    jobStatus: JobStatus.OPEN,
+    jobStatus: JobStatus.CLOSED,
     jobPostingDate: new Date("2025-06-27T14:00:00.000Z"),
     jobClosingDate: new Date("2025-07-15T14:00:00.000Z"),
   },
   {
     jobId: "22hdwudwsrab35erhd",
-    companyLogo: "https://placehold.co/100x100/FEECEB/EF4444?text=FoodLink",
+    companyLogo: "/codecommit2.png",
     companyName: "FoodLink Distribution",
     jobTitle: "Warehouse Associate",
     hrEmail: "zBt6A@foodlink.com",
@@ -423,7 +423,7 @@ export const jobLists: JobList[] = [
       "Health insurance, paid breaks, opportunities for advancement.",
     jobSalary: "$18 - $22/hour",
     jobType: JobType.FULL_TIME,
-    jobStatus: JobStatus.OPEN,
+    jobStatus: JobStatus.CLOSED,
     jobPostingDate: new Date("2025-06-27T14:00:00.000Z"),
     jobClosingDate: new Date("2025-07-15T14:00:00.000Z"),
   },

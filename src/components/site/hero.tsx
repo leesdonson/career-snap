@@ -4,7 +4,6 @@ import { SearchBar } from "./search-bar";
 export const HeroSection = () => {
   return (
     <section className="min-h-screen p-2 mt-8  relative w-full bg-white/50 dark:bg-black/50 flex flex-col items-center justify-center">
-      {/* background */}
       <div className="absolute -z-10 bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
 
       {/* Search Bar */}
@@ -19,21 +18,17 @@ export const HeroSection = () => {
           <span className="text-medium font-bold">CareerSnap!</span> is a job
           search tool that helps you find the right job for you.
         </p>
-        {/* <Link href="/auth/sign-in" className="px-10 rounded py-5 w-full">
-          <Button className="px-10 bg-gradient-to-r text-white from-purple-800  to-blue-600 rounded py-5 w-full">
-            Get Started
-          </Button>
-        </Link> */}
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 w-full max-w-xl mx-auto font-semibold mt-5">
-          <div className="border shadow-2xl dark:bg-black bg-white shadow-blue-600 border-slate-300 dark:border-slate-600 p-4 rounded-md">
-            <p>500+</p>
+          <div className="hero-overview">
+            <p>100+</p>
             <p>Jobs/day</p>
           </div>
-          <div className="border shadow-2xl dark:bg-black bg-white shadow-blue-600 border-slate-300   dark:border-slate-600 p-4 rounded-md">
+          <div className="hero-overview">
             <p>500+</p>
             <p>Companies</p>
           </div>
-          <div className="border shadow-2xl dark:bg-black bg-white border-slate-300  shadow-blue-600 dark:border-slate-600 p-4 rounded-md">
+          <div className="hero-overview">
             <p>1000+</p>
             <p>Users</p>
           </div>

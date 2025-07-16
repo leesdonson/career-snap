@@ -12,23 +12,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { signOut } from "next-auth/react";
-// import {
-//   Dialog,
-//   DialogClose,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog";
-// import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const UserStatus = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
   // console.log(session);
   if (status === "loading") {
@@ -38,7 +28,12 @@ export const UserStatus = () => {
   if (status === "unauthenticated")
     return (
       <div className="">
-        <Button>Sign in</Button>
+        <Button
+          onClick={() => router.push("/auth/sign-in")}
+          className="rounded"
+        >
+          Sign in
+        </Button>
       </div>
     );
 
@@ -75,8 +70,10 @@ export const UserStatus = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <Link href={`/users/${session?.user?.id}`}>Profile</Link>
+        <DropdownMenuItem
+          onClick={() => router.push(`/users/${session?.user?.id}`)}
+        >
+          Profile
         </DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
