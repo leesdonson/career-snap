@@ -22,7 +22,7 @@ export const JobPosting = () => {
     <>
       {!mounted && !preview ? (
         <div className="w-full max-w-2xl mx-auto mt-10 p-5 min-h-screen flex items-center justify-center">
-          <JobPostingForm setPreview={() => setPreview(true)} />
+          <JobpostingPreview setPreview={() => setPreview(true)} />
         </div>
       ) : (
         <JobPostingForm setPreview={() => setPreview(true)} />
