@@ -10,22 +10,27 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export const JobpostingPreview = ({
-  setPreview,
-}: {
-  setPreview: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const JobpostingPreview = () => {
   const jobposting: JobList = localStorage.getItem("jobPosting")
-    ? JSON.parse(localStorage.getItem("jobPosting")!)
+    ? JSON.parse(localStorage.getItem("jobPosting") as string)
     : {};
+
+  useEffect(() => {
+    if (!jobposting) {
+      toast.error("No job posting found", {
+        style: { backgroundColor: "red", color: "white" },
+      });
+      router.push("/job-posting");
+    }
+  }, []);
 
   const router = useRouter();
   //   console.log(jobposting);
 
   const publish = () => {
     localStorage.removeItem("jobPosting");
-    setPreview(false);
     toast.success("Job posted successfully", {
       style: { backgroundColor: "green", color: "white" },
     });
@@ -37,8 +42,8 @@ export const JobpostingPreview = ({
         {/* header */}
         <header className="flex items-center justify-center gap-5">
           <h2 className="h-10 w-10 text-lg font-bold flex items-center justify-center border border-slate-600 rounded-full p-2">
-            {jobposting?.companyName.split(" ")[0].charAt(0).toUpperCase() +
-              jobposting?.companyName.split(" ")[1].charAt(0).toUpperCase()}
+            {jobposting?.companyName?.split(" ")[0].charAt(0).toUpperCase() +
+              jobposting?.companyName?.split(" ")[1].charAt(0).toUpperCase()}
           </h2>
           <p>{jobposting?.companyName}</p>
         </header>
@@ -159,11 +164,7 @@ export const JobpostingPreview = ({
             </p>
           </footer>
           <div className="flex w-full  items-center justify-center gap-5">
-            <Button
-              onClick={() => setPreview(false)}
-              type="button"
-              className="w-1/4 rounded"
-            >
+            <Button onClick={() => {}} type="button" className="w-1/4 rounded">
               Edit
             </Button>
             <Button onClick={publish} type="button" className="w-1/4 rounded">

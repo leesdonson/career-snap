@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { jobPostingSchema, JobStatus, JobType } from "@/lib/types/job-posting";
+import {
+  jobPostingSchema,
+  JobPostingType,
+  JobStatus,
+  JobType,
+} from "@/lib/types/job-posting";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -15,19 +19,28 @@ import {
   SelectValue,
 } from "../ui/select";
 import { DatePicker } from "./date-picker";
+import { useRouter } from "next/navigation";
 
-export const JobPostingForm = ({
-  setPreview,
-}: {
-  setPreview: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  type Posting = z.infer<typeof jobPostingSchema>;
+export const JobPostingForm = () => {
+  const router = useRouter();
+  const isLoggedIn = true;
 
-  const jobposting: Posting = localStorage.getItem("jobPosting")
-    ? JSON.parse(localStorage.getItem("jobPosting") as string)
+  const company = null;
+
+  useEffect(() => {
+    if (!company && !isLoggedIn) {
+      router.push("/auth/sign-in");
+    }
+    if (!company && isLoggedIn) {
+      router.push("/onboarding/company");
+    }
+  }, [company, isLoggedIn]);
+
+  const jobposting: JobPostingType = localStorage.getItem("jobPosting")
+    ? JSON.parse(localStorage.getItem("jobPosting")!)
     : {};
 
-  const form = useForm<Posting>({
+  const form = useForm<JobPostingType>({
     defaultValues: {
       jobTitle: jobposting.jobTitle || "",
       jobId: jobposting.jobId || "",
@@ -45,7 +58,7 @@ export const JobPostingForm = ({
     resolver: zodResolver(jobPostingSchema),
   });
 
-  const onSubmit = (data: Posting) => {
+  const onSubmit = (data: JobPostingType) => {
     console.log(data);
     localStorage.setItem(
       "jobPosting",
@@ -55,8 +68,9 @@ export const JobPostingForm = ({
         jobStatus: JobStatus.OPEN,
       })
     );
-    setPreview(true);
+    router.push("/job-posting/preview");
   };
+
   return (
     <Form {...form}>
       <form

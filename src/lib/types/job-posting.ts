@@ -61,3 +61,5 @@ export const jobPostingSchema = z.object({
   hrEmail: z.string().optional(),
   mailInstruction: z.string().optional(),
 });
+
+export type JobPostingType = z.infer<typeof jobPostingSchema>;
