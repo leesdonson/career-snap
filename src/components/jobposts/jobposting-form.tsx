@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -25,34 +25,45 @@ export const JobPostingForm = () => {
   const router = useRouter();
   const isLoggedIn = true;
 
+  const [mounted, setMounted] = useState(false);
+  const [jobposting, setJobposting] = useState<JobPostingType | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const company = null;
 
   useEffect(() => {
+    const store = localStorage.getItem("jobPosting")
+      ? JSON.parse(localStorage.getItem("jobPosting") as string)
+      : {};
+
+    if (store) {
+      setJobposting(store);
+    }
+
     if (!company && !isLoggedIn) {
       router.push("/auth/sign-in");
     }
     if (!company && isLoggedIn) {
       router.push("/onboarding/company");
     }
-  }, [company, isLoggedIn]);
-
-  const jobposting: JobPostingType = localStorage.getItem("jobPosting")
-    ? JSON.parse(localStorage.getItem("jobPosting")!)
-    : {};
+  }, [company, isLoggedIn, router]);
 
   const form = useForm<JobPostingType>({
     defaultValues: {
-      jobTitle: jobposting.jobTitle || "",
-      jobId: jobposting.jobId || "",
-      jobDescription: jobposting.jobDescription || "",
-      jobBenefits: jobposting.jobBenefits || "",
-      jobLink: jobposting.jobLink || "",
-      hrEmail: jobposting.hrEmail || "",
-      mailInstruction: jobposting.mailInstruction || "",
-      jobLocation: jobposting.jobLocation || "",
-      jobSalary: jobposting.jobSalary || "",
-      jobRequirements: jobposting.jobRequirements || "",
-      jobType: jobposting.jobType || JobType.FULL_TIME,
+      jobTitle: jobposting?.jobTitle || "",
+      jobId: jobposting?.jobId || "",
+      jobDescription: jobposting?.jobDescription || "",
+      jobBenefits: jobposting?.jobBenefits || "",
+      jobLink: jobposting?.jobLink || "",
+      hrEmail: jobposting?.hrEmail || "",
+      mailInstruction: jobposting?.mailInstruction || "",
+      jobLocation: jobposting?.jobLocation || "",
+      jobSalary: jobposting?.jobSalary || "",
+      jobRequirements: jobposting?.jobRequirements || "",
+      jobType: jobposting?.jobType || JobType.FULL_TIME,
       jobClosingDate: jobposting?.jobClosingDate || new Date(),
     },
     resolver: zodResolver(jobPostingSchema),
@@ -70,6 +81,8 @@ export const JobPostingForm = () => {
     );
     router.push("/job-posting/preview");
   };
+
+  if (!mounted) return null;
 
   return (
     <Form {...form}>

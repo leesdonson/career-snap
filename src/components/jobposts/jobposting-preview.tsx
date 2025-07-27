@@ -10,25 +10,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export const JobpostingPreview = () => {
+  const router = useRouter();
+
   const jobposting: JobList = localStorage.getItem("jobPosting")
     ? JSON.parse(localStorage.getItem("jobPosting") as string)
     : {};
-
-  useEffect(() => {
-    if (!jobposting) {
-      toast.error("No job posting found", {
-        style: { backgroundColor: "red", color: "white" },
-      });
-      router.push("/job-posting");
-    }
-  }, []);
-
-  const router = useRouter();
-  //   console.log(jobposting);
-
   const publish = () => {
     localStorage.removeItem("jobPosting");
     toast.success("Job posted successfully", {
@@ -36,6 +24,9 @@ export const JobpostingPreview = () => {
     });
     router.push("/");
   };
+
+  if (!jobposting) return null;
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="flex w-full flex-col border border-slate-600 rounded-md p-5">

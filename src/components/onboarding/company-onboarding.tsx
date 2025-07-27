@@ -10,6 +10,7 @@ import {
 } from "@/lib/types/company-onboarding";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const CompanyOnboardingForm = () => {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
@@ -98,7 +99,7 @@ export const CompanyOnboardingForm = () => {
         <div className="mb-5">
           {logoPreview ? (
             <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] ring-2 ring-blue-600 rounded-full flex items-center justify-center">
-              <img
+              <Image
                 className="w-full h-full object-cover object-center rounded-full"
                 src={logoPreview}
                 alt="profileImage"
