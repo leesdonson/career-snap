@@ -23,7 +23,7 @@ export const SearchBar = () => {
   return (
     <Form {...form}>
       <form
-        className="flex max-w-xl bg-white/60 dark:bg-black/40 w-full p-2 rounded-md  border border-slate-400 dark:border-neutral-600"
+        className="flex max-w-xl bg-white/60 dark:bg-black/40 w-full p-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -31,9 +31,8 @@ export const SearchBar = () => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Search</FormLabel>
               <input
-                className="w-full border p-2 outline-none focus:border-2 focus:border-blue-700 border-slate-500 rounded"
+                className="w-full border px-5 py-2 outline-none focus:border-2 focus:border-blue-700 border-slate-500 rounded-full"
                 placeholder="Job title, company, location..."
                 {...field}
               />

@@ -2,18 +2,20 @@
 
 import React from "react";
 import { jobLists } from "@/lib/job-lists";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   BookOpenCheck,
   FileCheck2,
   HandHeart,
   CircleDollarSign,
+  X,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import clsx from "clsx";
 
 export const JobDetails = () => {
   const { id } = useParams();
+  const router = useRouter();
 
   const jobList = jobLists.find((job) => job.jobId === id);
 
@@ -24,7 +26,13 @@ export const JobDetails = () => {
       </div>
     );
   return (
-    <div className="flex bg-white/50 dark:bg-black/50 flex-col border border-slate-600 rounded-md p-5">
+    <div className="flex relative bg-white/50 dark:bg-black/50 flex-col border border-slate-600 rounded-md p-5">
+      <div
+        onClick={() => router.back()}
+        className="absolute right-2 top-2 bg-red-600 p-1 rounded-full"
+      >
+        <X />
+      </div>
       {/* header */}
       <header className="flex items-center justify-center gap-5">
         <h2 className="h-10 w-10 text-lg font-bold flex items-center justify-center border border-slate-600 rounded-full p-2">
