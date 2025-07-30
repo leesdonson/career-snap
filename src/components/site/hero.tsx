@@ -17,7 +17,7 @@ export const HeroSection = () => {
       {/* Search Results */}
       {searchTerm && (
         <div className="absolute overflow-hidden backdrop-blur-xs h-screen z-20 top-0 left-0 right-0 bg-black/50 flex items-center justify-center">
-          <SearchResults />
+          <SearchResults url="/" />
         </div>
       )}
 

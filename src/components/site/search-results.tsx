@@ -7,8 +7,7 @@ import { JobList } from "@/lib/types/job-posting";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-export const SearchResults = () => {
+export const SearchResults = ({ url }: { url: string }) => {
   const { searchTerm, setSearchTerm } = useFilterContext();
   const router = useRouter();
 
@@ -23,7 +22,7 @@ export const SearchResults = () => {
     .slice(0, 6);
   const handleBack = () => {
     setSearchTerm("");
-    router.back();
+    router.push(url);
   };
   return (
     <div className="border overflow-auto scroll-smooth h-[400px] relative rounded-md border-amber-400 max-w-2xl mx-auto w-full">
@@ -48,7 +47,7 @@ export const SearchResults = () => {
         {result.length > 0 &&
           result.map((job) => (
             <div
-              className="border border-slate-500 p-2 mb-2 rounded"
+              className="border hover:bg-slate-900 transition-all duration-300 ease-in-out border-slate-500 p-2 mb-2 rounded"
               key={job.jobId}
             >
               <Link href={`/jobseekers/${job.jobId}`}>
