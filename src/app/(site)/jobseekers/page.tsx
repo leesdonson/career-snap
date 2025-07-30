@@ -1,6 +1,4 @@
 import { JobListing } from "@/components/jobseekers/job-listing";
-// import { SearchResultCard } from "@/components/jobseekers/search-result-card";
-import { SearchBar } from "@/components/site/search-bar";
 import React, { Suspense } from "react";
 import Loading from "./loading";
 import JobSeek from "@/components/jobseekers/jobseek";
@@ -16,9 +14,7 @@ const JobseekersPage = () => {
         {/* <SearchBar /> */}
         <JobSeek />
       </div>
-      {/* <div className="flex items-center justify-center flex-col p-5 gap-3">
-        <SearchResultCard />
-      </div> */}
+
       <Suspense fallback={<Loading />}>
         <div className="mt-14 md:mt-12 w-full">
           <JobListing />
