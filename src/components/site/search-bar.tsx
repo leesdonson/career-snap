@@ -1,15 +1,20 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Form, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormField, FormItem } from "../ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useFilterContext } from "@/contexts/filters/filter-context";
+import { Search } from "lucide-react";
 
 const searchSchema = z.object({
   search: z.string(),
 });
 
 export const SearchBar = () => {
+  const { searchTerm, setSearchTerm } = useFilterContext();
+  console.log(searchTerm);
+
   const form = useForm<z.infer<typeof searchSchema>>({
     resolver: zodResolver(searchSchema),
     defaultValues: {
@@ -18,12 +23,13 @@ export const SearchBar = () => {
   });
 
   const onSubmit = (data: z.infer<typeof searchSchema>) => {
-    console.log(data);
+    setSearchTerm(data.search);
+    form.reset();
   };
   return (
     <Form {...form}>
       <form
-        className="flex max-w-xl bg-white/60 dark:bg-black/40 w-full p-2"
+        className="flex items-center justify-center relative max-w-xl bg-white/60 dark:bg-black/40 w-full p-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -39,6 +45,9 @@ export const SearchBar = () => {
             </FormItem>
           )}
         />
+        <button type="submit" className="absolute right-5 top-4 h-5 w-5">
+          <Search />
+        </button>
       </form>
     </Form>
   );

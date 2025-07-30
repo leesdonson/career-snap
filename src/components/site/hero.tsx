@@ -1,13 +1,25 @@
+"use client";
+
 import React from "react";
 import { SearchBar } from "./search-bar";
+import { SearchResults } from "./search-results";
+import { useFilterContext } from "@/contexts/filters/filter-context";
 
 export const HeroSection = () => {
+  const { searchTerm } = useFilterContext();
   return (
-    <section className="min-h-screen p-2 mt-8  relative w-full bg-white/50 dark:bg-black/50 flex flex-col items-center justify-center">
+    <section className="min-h-screen relative p-2 mt-8 w-full bg-white/50 dark:bg-black/50 flex flex-col items-center justify-center">
       <div className="absolute -z-10 bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
 
       {/* Search Bar */}
       <SearchBar />
+
+      {/* Search Results */}
+      {searchTerm && (
+        <div className="absolute overflow-hidden backdrop-blur-xs h-screen z-20 top-0 left-0 right-0 bg-black/50 flex items-center justify-center">
+          <SearchResults />
+        </div>
+      )}
 
       <div className="flex items-center justify-center flex-col p-5">
         <h1 className="text-5xl font-bold p-2">CareerSnap</h1>
