@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { User } from "lucide-react";
 import { Loading } from "@/components/ui/loading";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -31,23 +32,37 @@ export const Profile = () => {
               className="rounded-full object-center object-cover"
             />
           ) : (
-            <p>
-              {
-                ((session?.user?.name
-                  ?.split(" ")[0]
-                  .charAt(0)
-                  .toUpperCase() as string) +
-                  session?.user?.name
-                    ?.split(" ")[1]
-                    .charAt(0)
-                    .toUpperCase()) as string
-              }
-            </p>
+            <div className="">
+              <User className="h-7 w-7" />
+            </div>
           )}
         </div>
         <p className="font-bold text-sm  md:text-lg text-blue-700">
-          {session?.user?.name}
+          {session?.user?.name ? session?.user.name : session?.user.email}
         </p>
+      </div>
+      {/* user details */}
+      <div className="mt-5 flex gap-3 flex-col">
+        <div className="">
+          {/* details */}
+          <p>Personal Info</p>
+        </div>
+        {/* Past Experiences */}
+        <div className="">
+          <p>Past Experiences</p>
+        </div>
+        {/* Education */}
+        <div className="">
+          <p>Education</p>
+        </div>
+        {/* Skills */}
+        <div className="">
+          <p>Skills</p>
+        </div>
+        {/* Languages */}
+        <div className="">
+          <p>Languages</p>
+        </div>
       </div>
     </div>
   );
