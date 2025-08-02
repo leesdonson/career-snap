@@ -1,8 +1,8 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+// import type { NextRequest } from "next/server";
 
-export default withAuth(function middleware(req: NextRequest) {
+export default withAuth(function middleware() {
   const response = NextResponse.next();
   response.headers.delete("X-Powered-By");
   response.headers.set("X-content-Type-Options", "nosniff");
