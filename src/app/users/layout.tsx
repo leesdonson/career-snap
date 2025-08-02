@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/contexts/providers/theme-provider";
 import { Navbar } from "@/components/navigation/navbar";
 import { Toaster } from "sonner";
 import AuthProvider from "@/components/auth/auth-provider";
+import { Profile } from "@/components/users/profile-sidebar";
 // import { AuthProvider } from "../_auth/auth-provider";
 
 const geistSans = Geist({
@@ -42,7 +43,15 @@ export default function UsersLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <main>{children}</main>
+            <div className="h-screen overflow-hidden flex p-2">
+              <aside className="w-1/4 hidden sm:block overflow-y-auto bg-slate-950 p-2 mt-[3rem]">
+                <Profile />
+              </aside>
+              <main className="w-3/4 p-2 mt-[3rem]">
+                {/* <UserDetails /> */}
+                {children}
+              </main>
+            </div>
             <Toaster />
           </ThemeProvider>
         </AuthProvider>

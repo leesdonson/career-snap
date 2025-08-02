@@ -5,7 +5,7 @@ import { Loading } from "@/components/ui/loading";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-export const UserDetails = () => {
+export const PersonalInfo = () => {
   const { data: session, status } = useSession();
   if (status === "unauthenticated") return redirect("/auth/sign-in");
 
@@ -17,11 +17,8 @@ export const UserDetails = () => {
     );
 
   return (
-    <div>
-      <div className="flex items-center gap-5 text-sm p-2">
-        <p>Email : {session?.user?.email}</p>
-        <p className="">ID : {session?.user?.id.slice(0, 8).concat("...")}</p>
-      </div>
+    <div className="w-full flex items-center border border-amber-300 p-2 justify-center">
+      <h1 className="text-2xl font-bold">Personal Info</h1>
     </div>
   );
 };

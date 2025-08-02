@@ -6,6 +6,13 @@ import { Loading } from "@/components/ui/loading";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { sidebarNavFn } from "@/lib/sidebar-nav";
+import Link from "next/link";
+
+interface NavLinks {
+  name: string;
+  href: string;
+}
 
 export const Profile = () => {
   const { data: session, status } = useSession();
@@ -16,6 +23,8 @@ export const Profile = () => {
         <Loading />
       </div>
     );
+
+  const sidebarNav: NavLinks[] = sidebarNavFn(session?.user?.id as string);
 
   return (
     <div className="w-full">
@@ -43,26 +52,15 @@ export const Profile = () => {
       </div>
       {/* user details */}
       <div className="mt-5 flex gap-3 flex-col">
-        <div className="">
-          {/* details */}
-          <p>Personal Info</p>
-        </div>
-        {/* Past Experiences */}
-        <div className="">
-          <p>Past Experiences</p>
-        </div>
-        {/* Education */}
-        <div className="">
-          <p>Education</p>
-        </div>
-        {/* Skills */}
-        <div className="">
-          <p>Skills</p>
-        </div>
-        {/* Languages */}
-        <div className="">
-          <p>Languages</p>
-        </div>
+        {sidebarNav.map((item, index) => (
+          <Link
+            key={index}
+            href={item.href}
+            className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded"
+          >
+            {item.name}
+          </Link>
+        ))}
       </div>
     </div>
   );
