@@ -96,13 +96,15 @@ model Authenticator {
 
 model Company {
   id                    String  @id @default(cuid())
-  companyName           String  @map("company_name") @db.VarChar(255)
-  companyEmail          String  @unique @map("company_email") @db.VarChar(255)
-  companyWebsite        String? @map("company_website")
-  companyAddress        String  @map("company_address")
-  companyLogo           String  @map("company_logo")
-  bizRegistrationNumber Int     @map("biz_registration_number")
-  taxIdNumber           Int     @map("tax_id_number")
+  name                  String  @map("company_name") @db.VarChar(255)
+  email                 String  @unique @map("company_email") @db.VarChar(255)
+  website               String? @map("company_website")
+  address               String  @map("company_address")
+  logo                  String  @map("company_logo")
+  bizRegistrationNumber String  @map("biz_registration_number")
+  taxIdNumber           String  @map("tax_id_number")
+  phone                 String
+  description           String  @db.VarChar(255)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -111,7 +113,7 @@ model Company {
   jobPosts     JobPost[]
   commentReply CommentReply[]
 
-  @@index([id, companyEmail])
+  @@index([id, email])
   @@map("companies")
 }
 

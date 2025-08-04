@@ -11,6 +11,8 @@ import {
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { createBusiness } from "@/actions/business.action";
+import { Loader2 } from "lucide-react";
 
 export const CompanyOnboardingForm = () => {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
@@ -20,15 +22,15 @@ export const CompanyOnboardingForm = () => {
 
   const form = useForm<CompanyOnboardingType>({
     defaultValues: {
-      companyName: "",
-      companyLogo: "",
+      name: "",
+      logo: "",
       description: "",
-      companyEmail: "",
-      companyPhone: "",
-      companyAddress: "",
-      companyRegistrationNumber: "",
-      companyTaxNumber: "",
-      companyWebsite: "",
+      email: "",
+      phone: "",
+      address: "",
+      bizRegistrationNumber: "",
+      taxNumber: "",
+      website: "",
     },
     resolver: zodResolver(companyOnboardingSchema),
   });
@@ -45,13 +47,15 @@ export const CompanyOnboardingForm = () => {
     onChange(selectedFile.toString());
   };
 
-  const onSubmit = (data: CompanyOnboardingType) => {
+  const onSubmit = async (data: CompanyOnboardingType) => {
     const payload = {
       ...data,
-      companyLogo: image,
+      logo: image as string,
     };
 
     console.log(payload);
+    const newBiz = await createBusiness(payload);
+    console.log(newBiz);
     router.push("/");
   };
 
@@ -67,7 +71,7 @@ export const CompanyOnboardingForm = () => {
         <div className="flex w-full items-center justify-center mb-4 gap-5">
           <FormField
             control={form.control}
-            name="companyName"
+            name="name"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Name</FormLabel>
@@ -82,7 +86,7 @@ export const CompanyOnboardingForm = () => {
           />
           <FormField
             control={form.control}
-            name="companyEmail"
+            name="email"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Email</FormLabel>
@@ -98,17 +102,18 @@ export const CompanyOnboardingForm = () => {
         </div>
         <div className="mb-5">
           {logoPreview ? (
-            <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] ring-2 ring-blue-600 rounded-full flex items-center justify-center">
+            <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] ring-2 ring-blue-600 rounded-full flex items-center relative justify-center">
               <Image
                 className="w-full h-full object-cover object-center rounded-full"
                 src={logoPreview}
+                fill
                 alt="profileImage"
               />
             </div>
           ) : (
             <FormField
               control={form.control}
-              name="companyLogo"
+              name="logo"
               render={({ field: { onChange, ref } }) => (
                 <FormItem className="w-full">
                   <p>Company Logo</p>
@@ -152,7 +157,7 @@ export const CompanyOnboardingForm = () => {
         <div className="mb-5 flex w-full items-center justify-center gap-5">
           <FormField
             control={form.control}
-            name="companyWebsite"
+            name="website"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Website</FormLabel>
@@ -168,7 +173,7 @@ export const CompanyOnboardingForm = () => {
           />
           <FormField
             control={form.control}
-            name="companyPhone"
+            name="phone"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Phone</FormLabel>
@@ -185,7 +190,7 @@ export const CompanyOnboardingForm = () => {
         <div className="mb-5 flex w-full items-center justify-center gap-5">
           <FormField
             control={form.control}
-            name="companyAddress"
+            name="address"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Address</FormLabel>
@@ -202,7 +207,7 @@ export const CompanyOnboardingForm = () => {
         <div className="mb-5 flex w-full items-center justify-center gap-5">
           <FormField
             control={form.control}
-            name="companyRegistrationNumber"
+            name="bizRegistrationNumber"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Registration Number</FormLabel>
@@ -217,7 +222,7 @@ export const CompanyOnboardingForm = () => {
           />
           <FormField
             control={form.control}
-            name="companyTaxNumber"
+            name="taxNumber"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Company Tax Identigication Number</FormLabel>
@@ -237,7 +242,11 @@ export const CompanyOnboardingForm = () => {
             type="submit"
             className="w-full md:w-1/3 rounded bg-blue-700 text-slate-50 hover:text-slate-950"
           >
-            Preview
+            {form.formState.isSubmitting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Save"
+            )}
           </Button>
         </div>
       </form>
