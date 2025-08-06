@@ -9,6 +9,9 @@ const fileSchema = z
 export const companyOnboardingSchema = z.object({
   name: z.string().min(3, { message: "Please enter company name." }),
   logo: z.string(fileSchema).min(3, { message: "Please add company logo." }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters." }),
   description: z
     .string()
     .min(3, { message: "Please add company description." }),

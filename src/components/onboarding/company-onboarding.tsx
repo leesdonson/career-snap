@@ -14,10 +14,13 @@ import Image from "next/image";
 import { createBusiness } from "@/actions/business.action";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { EyeOff, Eye } from "lucide-react";
 
 export const CompanyOnboardingForm = () => {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
   const [image, setImage] = React.useState<string | null>(null);
+
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -27,6 +30,7 @@ export const CompanyOnboardingForm = () => {
     defaultValues: {
       name: "",
       logo: "",
+      password: "",
       description: "",
       email: "",
       phone: "",
@@ -67,7 +71,7 @@ export const CompanyOnboardingForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="border border-slate-500 p-2 w-full rounded-md"
+        className="border border-slate-500 p-2 w-full mt-3 rounded-md"
       >
         <h1 className="text-xl p-2 mb-5 text-center font-semibold">
           Company Onboarding
@@ -104,15 +108,17 @@ export const CompanyOnboardingForm = () => {
             )}
           />
         </div>
-        <div className="mb-5">
+        <div className="mb-5 flex w-full items-start justify-center gap-5">
           {logoPreview ? (
-            <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] ring-2 ring-blue-600 rounded-full flex items-center relative justify-center">
-              <Image
-                className="w-full h-full object-cover object-center rounded-full"
-                src={logoPreview}
-                fill
-                alt="profileImage"
-              />
+            <div className="w-full">
+              <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[110px] lg:h-[110px] ring-2 ring-blue-600 rounded-full flex items-center relative justify-center">
+                <Image
+                  className="w-full h-full object-cover object-center rounded-full"
+                  src={logoPreview}
+                  fill
+                  alt="profileImage"
+                />
+              </div>
             </div>
           ) : (
             <FormField
@@ -140,6 +146,33 @@ export const CompanyOnboardingForm = () => {
               )}
             />
           )}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="w-full mt-3 relative">
+                <FormLabel>Admin Password</FormLabel>
+                <input
+                  className="w-full border p-2 outline-none focus:border-2 focus:border-blue-700 border-slate-500 rounded"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter admin password"
+                  {...field}
+                />
+                {!showPassword ? (
+                  <EyeOff
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute h-5 w-5 right-2 top-8 cursor-pointer"
+                  />
+                ) : (
+                  <Eye
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute h-5 w-5 right-2 top-8 cursor-pointer"
+                  />
+                )}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="mb-5">
           <FormField

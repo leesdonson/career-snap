@@ -11,6 +11,7 @@ export const navLinks = [
   },
 ];
 export const Navbar = () => {
+  const isLoggedIn = false; // Replace with actual authentication logic
   return (
     <header className="flex fixed top-0 bg-white/70 backdrop-blur-2xl dark:bg-neutral-950/70 left-0 right-0 z-50 w-full items-center justify-between py-2 px-3 md:px-10">
       <div className="">
@@ -21,7 +22,7 @@ export const Navbar = () => {
           careerSnap
         </Link>
       </div>
-      <div className="flex items-center justify-center gap-3">
+      <div className="flex relative items-center justify-center gap-3">
         {/* <NavLinks /> */}
         <nav className="md:flex items-center justify-center hidden  gap-5">
           {navLinks.map((link) => (
@@ -34,8 +35,11 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
-        <Employer />
+        {/* Employer section */}
+        {isLoggedIn && <Employer />}
+
         {/* Usesr status*/}
+
         <UserStatus />
 
         <div className="md:hidden block">

@@ -1,9 +1,20 @@
+"use client";
+
 import React from "react";
+import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Platform = () => {
+  const router = useRouter();
   return (
-    <div className="w-full h-screen flex items-center justify-center p-1">
-      <div className="max-w-xl mx-auto p-2 border border-amber-400 rounded-md w-full">
+    <div className="w-full absolute to-0 left-0 z-[99] right-0 backdrop-blur-[2px] h-screen flex items-center justify-center p-1">
+      <div className="max-w-xl relative mx-auto p-5 border border-amber-400 rounded-md w-full">
+        <div
+          onClick={() => router.back()}
+          className="absolute flex items-center justify-center h-6 w-6 top-1 border border-red-600 rounded-full right-1"
+        >
+          <X className="h-5 w-5" />
+        </div>
         <h1 className="text-2xl font-bold text-center p-4">
           Choose who you want be in this platform.
         </h1>
