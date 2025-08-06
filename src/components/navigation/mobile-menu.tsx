@@ -1,11 +1,11 @@
 "use client";
 
+import React from "react";
 import { AlignJustify } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { navLinks } from "./navbar";
-import React from "react";
 export const MobileMenu = () => {
   const [open, setOpen] = React.useState(false);
 

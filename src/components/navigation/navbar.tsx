@@ -3,18 +3,13 @@ import React from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileMenu } from "./mobile-menu";
 import { UserStatus } from "../auth/users/user-status";
-
+import { Employer } from "./employer";
 export const navLinks = [
   {
-    name: "Find Jobs",
+    name: "Find jobs",
     path: "/jobseekers",
   },
-  {
-    name: "Employers/ Post Job",
-    path: "/job-posting",
-  },
 ];
-
 export const Navbar = () => {
   return (
     <header className="flex fixed top-0 bg-white/70 backdrop-blur-2xl dark:bg-neutral-950/70 left-0 right-0 z-50 w-full items-center justify-between py-2 px-3 md:px-10">
@@ -27,10 +22,11 @@ export const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center justify-center gap-3">
+        {/* <NavLinks /> */}
         <nav className="md:flex items-center justify-center hidden  gap-5">
           {navLinks.map((link) => (
             <Link
-              className="shadow-sm p-2 text-sm hover:scale-105 transition-all duration-300 ease-in-out rounded border border-slate-600 shadow-blue-600 "
+              className="shadow-sm px-2 py-1 text-sm hover:scale-105 transition-all duration-300 ease-in-out rounded border border-slate-600 shadow-blue-600 "
               key={link.name}
               href={link.path}
             >
@@ -38,6 +34,7 @@ export const Navbar = () => {
             </Link>
           ))}
         </nav>
+        <Employer />
         {/* Usesr status*/}
         <UserStatus />
 

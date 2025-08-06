@@ -14,7 +14,6 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export const UserStatus = () => {
@@ -28,12 +27,12 @@ export const UserStatus = () => {
   if (status === "unauthenticated")
     return (
       <div className="">
-        <Button
-          onClick={() => router.push("/auth/sign-in")}
-          className="rounded"
+        <button
+          onClick={() => router.push("/platform")}
+          className="rounded bg-blue-700 px-2 py-1 text-sm text-slate-100"
         >
           Sign in
-        </Button>
+        </button>
       </div>
     );
 

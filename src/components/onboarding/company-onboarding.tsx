@@ -13,12 +13,15 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createBusiness } from "@/actions/business.action";
 import { Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export const CompanyOnboardingForm = () => {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
   const [image, setImage] = React.useState<string | null>(null);
 
   const router = useRouter();
+  const { data: session } = useSession();
+  console.log(session);
 
   const form = useForm<CompanyOnboardingType>({
     defaultValues: {
@@ -51,6 +54,7 @@ export const CompanyOnboardingForm = () => {
     const payload = {
       ...data,
       logo: image as string,
+      userId: session?.user?.id!, // Replace with actual user ID from context or state
     };
 
     console.log(payload);
@@ -245,7 +249,7 @@ export const CompanyOnboardingForm = () => {
             {form.formState.isSubmitting ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "Save"
+              "Create Company"
             )}
           </Button>
         </div>

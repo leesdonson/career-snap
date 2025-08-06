@@ -14,5 +14,5 @@ export const JobPosting = () => {
     }
   }, [session, status]);
 
-  return <JobPostingForm />;
+  return <JobPostingForm id={session?.user?.id as string} />;
 };

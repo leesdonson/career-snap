@@ -20,19 +20,27 @@ import {
 } from "../ui/select";
 import { DatePicker } from "./date-picker";
 import { useRouter } from "next/navigation";
+import { getCompany } from "@/actions/biz-queries";
+import { Company } from "@prisma/client";
 
-export const JobPostingForm = () => {
+export const JobPostingForm = ({ slug }: { slug: string }) => {
   const router = useRouter();
   const isLoggedIn = true;
 
   const [mounted, setMounted] = useState(false);
+  const [company, setCompany] = useState<Company | null>(null);
   const [jobposting, setJobposting] = useState<JobPostingType | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const getCompanyData = async () => {
+      const response = await getCompany(slug); // Replace with actual company ID
 
-  const company = null;
+      setCompany(response);
+    };
+    setMounted(true);
+
+    getCompanyData();
+  }, []);
 
   useEffect(() => {
     const store = localStorage.getItem("jobPosting")

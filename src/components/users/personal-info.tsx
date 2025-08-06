@@ -15,9 +15,9 @@ export const PersonalInfo = () => {
         <Loading />
       </div>
     );
-
+  console.log(session);
   return (
-    <div className="w-full flex items-center border border-amber-300 p-2 justify-center">
+    <div className="w-full flex flex-col items-center border border-amber-300 p-2 justify-center">
       <h1 className="text-2xl font-bold">Personal Info</h1>
       <p>{session?.user?.name ? session.user.name : "Hello"}</p>
     </div>
