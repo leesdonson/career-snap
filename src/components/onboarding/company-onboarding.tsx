@@ -15,6 +15,7 @@ import { createBusiness } from "@/actions/business.action";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { EyeOff, Eye } from "lucide-react";
+import Link from "next/link";
 
 export const CompanyOnboardingForm = () => {
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
@@ -73,9 +74,19 @@ export const CompanyOnboardingForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="border border-slate-500 p-2 w-full mt-3 rounded-md"
       >
-        <h1 className="text-xl p-2 mb-5 text-center font-semibold">
+        <h1 className="text-xl p-2 mb-3 text-center font-semibold">
           Company Onboarding
         </h1>
+        <div className="mb-4">
+          <Link
+            href="/auth/company-signin"
+            className="flex justify-center bg-blue-700 rounded p-2"
+          >
+            <button className="text-sm cursor-pointer text-slate-100">
+              Already have an account? Login.
+            </button>
+          </Link>
+        </div>
         <div className="flex w-full items-center justify-center mb-4 gap-5">
           <FormField
             control={form.control}
