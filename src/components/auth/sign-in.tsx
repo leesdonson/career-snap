@@ -48,7 +48,7 @@ const SignInForm = () => {
       callbackUrl: "/",
     });
     if (result?.error) {
-      toast.error("Something went wrong.", {
+      toast.error(result.error, {
         style: {
           backgroundColor: "#c9080f",
           color: "#ffffff",

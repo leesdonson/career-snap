@@ -13,6 +13,14 @@ model User {
   id              String    @id @default(cuid())
   name            String?   @db.VarChar(255)
   image           String?
+  bio             String?   @db.Text
+  dateOfBirth     DateTime? @map("date_of_birth")
+  phone           String?   @db.VarChar(20)
+  country         String?   @db.VarChar(255)
+  city            String?   @db.VarChar(255)
+  state           String?   @db.VarChar(255)
+  address         String?   @db.VarChar(255)
+  postalCode      String?   @map("postal_code") @db.VarChar(20)
   email           String    @unique @db.VarChar(85)
   password        String?   @db.VarChar(255)
   educationLevel  String?   @map("education_level") @db.VarChar(255)
@@ -25,12 +33,10 @@ model User {
   updatedA  DateTime @updatedAt @map("updated_at")
 
   // Relationship
-  jobLikes        JobPostLike[]
-  jobPostComments JobPostComment[]
-  accounts        Account[]
-  sessions        Session[]
-  Authenticator   Authenticator[]
-  companies       Company[]
+  accounts      Account[]
+  sessions      Session[]
+  Authenticator Authenticator[]
+  companies     Company[]
 
   @@index([id])
   @@map("users")
@@ -114,8 +120,7 @@ model Company {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relationship
-  jobPosts     JobPost[]
-  commentReply CommentReply[]
+  jobPosts JobPost[]
 
   @@index([id, email])
   @@map("companies")
@@ -153,44 +158,8 @@ model JobPost {
   createdAt DateTime @default(now()) @map("created_at")
 
   // Relationship
-  company  Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  likes    JobPostLike[]
-  comments JobPostComment[]
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@index([id, jobId])
   @@map("job_posts")
-}
-
-model JobPostLike {
-  id        Int     @id @default(autoincrement())
-  likes     Int
-  userId    String  @map("user_id")
-  jobPostId String  @map("job_post_id")
-  jobPost   JobPost @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("job_post_likes")
-}
-
-model JobPostComment {
-  id        Int     @id @default(autoincrement())
-  userId    String  @map("user_id")
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  jobPostId String  @map("job_post_id")
-  jobPost   JobPost @relation(fields: [jobPostId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("job_post_comments")
-}
-
-model CommentReply {
-  id        Int      @id @default(autoincrement())
-  companyId String   @map("company_id")
-  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("comment_replies")
 }

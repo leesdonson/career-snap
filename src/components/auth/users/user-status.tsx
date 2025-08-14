@@ -28,7 +28,7 @@ export const UserStatus = () => {
     return (
       <div className="">
         <button
-          onClick={() => router.push("/platform")}
+          onClick={() => router.push("/auth/sign-in")}
           className="rounded bg-blue-700 px-2 py-1 text-sm text-slate-100"
         >
           Sign in

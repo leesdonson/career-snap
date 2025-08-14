@@ -1,52 +1,54 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import { z } from "zod";
+import {
+  SignUpFormData,
+  SignUpResponse,
+  signUpSchema,
+} from "@/lib/types/sign-up.types";
 import bcrypt from "bcryptjs";
 
-const schema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters." }),
-});
-
-export const signUp = async (formData: FormData) => {
+export const signUp = async (
+  formData: SignUpFormData
+): Promise<SignUpResponse> => {
   try {
-    const validation = schema.safeParse({
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
+    const email = formData.email;
+    const password = formData.password;
+
+    const validation = signUpSchema.safeParse({
+      email,
+      password,
     });
 
     if (!validation.success) {
-      return validation.error.formErrors.fieldErrors;
+      throw new Error(
+        "Validation failed: " +
+          validation.error.errors.map((e) => e.message).join(", ")
+      );
     }
     // check if user exists already
     const isUserExist = await prisma.user.findUnique({
       where: {
-        email: formData.get("email") as string,
+        email,
       },
     });
 
     if (isUserExist) {
-      return {
-        error: "User already exists",
-      };
+      throw new Error("User already exists with this email.");
     }
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(
-      formData.get("password") as string,
-      salt
-    );
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await prisma.user.create({
       data: {
-        email: formData.get("email") as string,
+        email,
         password: hashedPassword,
       },
     });
     const rest = {
       id: user.id,
       email: user.email,
+      name: user.name,
+      image: user.image,
     };
 
     console.log(rest);

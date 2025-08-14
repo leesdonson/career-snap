@@ -20,13 +20,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { signUp } from "@/actions/sign-up";
 import { Loading } from "../ui/loading";
-
-const signUpSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters." }),
-});
+import { toast } from "sonner";
+import { SignUpResponse, signUpSchema } from "@/lib/types/sign-up.types";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -41,15 +36,37 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     try {
-      const payload = new FormData();
-      payload.append("email", data.email);
-      payload.append("password", data.password);
-
-      const response = await signUp(payload);
+      const response: SignUpResponse | any = await signUp(data);
       console.log(response);
 
-      if (response) {
-        router.replace("/");
+      const user = {
+        email: response?.user?.email,
+        password: data.password,
+      };
+
+      const result = await signIn("credentials", {
+        ...user,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      if (result?.error) {
+        toast.error(result.error, {
+          style: {
+            backgroundColor: "#c9080f",
+            color: "#ffffff",
+          },
+        });
+      }
+
+      if (result?.ok && !result.error) {
+        toast.success("Login Success.", {
+          style: {
+            backgroundColor: "#17c40e",
+            color: "#ffffff",
+          },
+        });
+        router.replace(result.url || "/");
       }
     } catch (error) {
       console.log(error);

@@ -3,7 +3,7 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import bcrypt from "bcryptjs";
+
 // import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
         if (!credentials?.email || !credentials.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Please provide email and password.");
         }
         // Check if the user exist, login
         const user = await prisma.user.findUnique({
@@ -46,41 +46,52 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        //if user do exist, login the user
-        if (user) {
-          const matchedPassword = await bcrypt.compare(
-            credentials.password,
-            user?.password as string
-          );
-          if (matchedPassword) {
-            return user;
-          } else {
-            return null;
-          }
+        // if user not exist, return null
+        if (!user) {
+          throw new Error("User account not found. Please sign up.");
         }
+
+        //if user do exist, login the user
+        // if (user) {
+        //   const matchedPassword = await bcrypt.compare(
+        //     credentials.password,
+        //     user?.password as string
+        //   );
+        //   if (matchedPassword) {
+        //     return user;
+        //   } else {
+        //     throw new Error("Invalid credentials");
+        //   }
+        // }
         // else create new user
 
-        if (!user) {
-          const salt = await bcrypt.genSalt(10);
-          const hashedPassword = await bcrypt.hash(credentials.password, salt);
-          const newUser = await prisma.user.create({
-            data: {
-              email: credentials.email,
-              password: hashedPassword,
-            },
-          });
+        // if (!user) {
+        //   const salt = await bcrypt.genSalt(10);
+        //   const hashedPassword = await bcrypt.hash(credentials.password, salt);
+        //   const newUser = await prisma.user.create({
+        //     data: {
+        //       email: credentials.email,
+        //       password: hashedPassword,
+        //     },
+        //   });
 
-          if (!newUser) {
-            throw new Error("Failed to create new user.");
-          }
+        //   if (!newUser) {
+        //     throw new Error("Failed to create new user.");
+        //   }
 
-          const rest = {
-            id: newUser.id,
-            email: newUser.email,
-          };
-          return rest;
-        }
-        return null;
+        //   const rest = {
+        //     id: newUser.id,
+        //     email: newUser.email,
+        //   };
+        //   return rest;
+        // }
+        const rest = {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+        };
+        return rest;
       },
     }),
   ],
