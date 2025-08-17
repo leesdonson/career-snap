@@ -20,7 +20,6 @@ model User {
   city            String?   @db.VarChar(255)
   state           String?   @db.VarChar(255)
   address         String?   @db.VarChar(255)
-  postalCode      String?   @map("postal_code") @db.VarChar(20)
   email           String    @unique @db.VarChar(85)
   password        String?   @db.VarChar(255)
   educationLevel  String?   @map("education_level") @db.VarChar(255)

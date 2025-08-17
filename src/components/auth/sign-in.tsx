@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { User, X } from "lucide-react";
+import { ArrowRight, Loader2, User, X } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -80,6 +80,8 @@ const SignInForm = () => {
       });
     }
   };
+
+  const loading = form.formState.isSubmitting;
 
   return (
     <Form {...form}>
@@ -163,9 +165,19 @@ const SignInForm = () => {
         <Button
           type="submit"
           variant={"outline"}
-          className="rounded p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
+          className="rounded flex items-center justify-center p-2 bg-neutral-300 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-600"
         >
-          Sign in
+          {loading ? (
+            <>
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="ml-2">Signing In...</span>
+            </>
+          ) : (
+            <>
+              <span>Sign In</span>
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </>
+          )}
         </Button>
       </form>
     </Form>

@@ -47,7 +47,7 @@ export default function UsersLayout({
               <aside className="w-1/4 hidden sm:block overflow-y-auto bg-slate-950 p-2 mt-[3rem]">
                 <Profile />
               </aside>
-              <main className="w-3/4 p-2 mt-[3rem]">
+              <main className="w-3/4 p-2 overflow-y-auto mt-[3rem]">
                 {/* <UserDetails /> */}
                 {children}
               </main>

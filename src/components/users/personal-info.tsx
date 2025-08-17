@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { Loading } from "@/components/ui/loading";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { CircleUser, Camera } from "lucide-react";
+import UpdateInfo from "./update-info";
 
 export const PersonalInfo = () => {
   const [name, setName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [bio, setBio] = useState("");
   const [editingName, setEditingName] = useState(false);
-  const [editingDob, setEditingDob] = useState(false);
+
+  const [bio, setBio] = useState("");
   const [editingBio, setEditingBio] = useState(false);
 
   console.log(name);
@@ -31,20 +32,37 @@ export const PersonalInfo = () => {
     setName(name);
     setEditingName(false);
   };
-  const updateDateOfBirth = (dateOfBirth: string) => {
-    // Function to update the user's name
-    console.log("Updating dob to:");
-    setDateOfBirth(dateOfBirth);
-    setEditingDob(false);
-  };
+
   const updateBio = (bio: string) => {
     // Function to update the user's name
     console.log("Updating bio to:");
     setBio(bio);
     setEditingBio(false);
   };
+
   return (
-    <div className="w-full text-sm text-slate-100 border flex flex-col space-y-3 items-center p-2 justify-center">
+    <div className="w-full rounded-md text-sm text-slate-100 border flex flex-col space-y-3 p-2">
+      <div className="relative w-full flex items-center justify-center">
+        <div className="relative h-5">
+          <label
+            htmlFor="avatar"
+            title="Change Avatar"
+            className="cursor-pointer absolute -bottom-6 -right-2"
+          >
+            <input type="file" id="avatar" hidden />
+            <Camera className="h-5 w-5 text-slate-500 hover:text-slate-300" />
+          </label>
+        </div>
+        {session?.user?.image ? (
+          <img
+            src={session?.user?.image || "/default-avatar.png"}
+            alt="User Avatar"
+            className="h-20 w-20 rounded-full object-cover"
+          />
+        ) : (
+          <CircleUser className="h-20 w-20" />
+        )}
+      </div>
       <div className="w-full flex items-center justify-between">
         <div className="p-1 flex flex-col space-y-2">
           <label htmlFor="name">Name:</label>
@@ -74,40 +92,11 @@ export const PersonalInfo = () => {
         )}
       </div>
       <div className="w-full flex items-center justify-between">
-        <div className="p-1 flex flex-col space-y-2">
-          <label htmlFor="date-of-birth">Date of Birth:</label>
-          {editingDob ? (
-            <input
-              value={dateOfBirth}
-              defaultValue={"unknown"}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              onBlur={() => updateDateOfBirth(dateOfBirth)}
-              className="outline-none border rounded px-1 focus:border-blue-600"
-              type="text"
-              autoFocus
-            />
-          ) : (
-            <span onClick={() => setEditingDob(true)}>
-              {dateOfBirth || "03 January 2000"}
-            </span>
-          )}
-        </div>
-        {editingDob && (
-          <button
-            className="text-sm bg-green-500 p-1 rounded w-20"
-            onClick={() => updateDateOfBirth(dateOfBirth)}
-          >
-            Save
-          </button>
-        )}
-      </div>
-      <div className="w-full flex items-center justify-between">
         <div className="p-1 space-y-2 flex flex-col">
           <label htmlFor="bio">Bio:</label>
           {editingBio ? (
             <textarea
               value={bio}
-              defaultValue={"bio"}
               onChange={(e) => setBio(e.target.value)}
               onBlur={() => updateBio(bio)}
               className="outline-none w-lg block resize-none border rounded px-1 focus:border-blue-600"
@@ -128,6 +117,7 @@ export const PersonalInfo = () => {
           </button>
         )}
       </div>
+      <UpdateInfo />
     </div>
   );
 };
