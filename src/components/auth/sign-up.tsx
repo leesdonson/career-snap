@@ -22,10 +22,11 @@ import { signUp } from "@/actions/sign-up";
 import { Loading } from "../ui/loading";
 import { toast } from "sonner";
 import { SignUpResponse, signUpSchema } from "@/lib/types/sign-up.types";
+import { Eye, EyeOff } from "lucide-react";
 
 const SignUpForm = () => {
   const router = useRouter();
-
+  const [showPassword, setShowPassword] = React.useState(false);
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -130,15 +131,26 @@ const SignUpForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="relative">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <input
                   className="w-full border border-slate-500 outline-none rounded p-2 focus:border-blue-600"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   {...field}
                 />
               </FormControl>
+              <button
+                type="button"
+                className="absolute right-3 top-8"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
               <FormMessage />
             </FormItem>
           )}

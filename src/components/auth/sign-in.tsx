@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "../ui/form";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
@@ -20,18 +19,15 @@ import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
-
-const signInSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters." }),
-});
+import { Eye, EyeOff } from "lucide-react";
+import { SignInFormData, signInSchema } from "@/lib/types/sign-in-schema";
 
 const SignInForm = () => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof signInSchema>>({
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
@@ -39,9 +35,7 @@ const SignInForm = () => {
     },
   });
 
-  const handleCredentialsSignin = async (
-    data: z.infer<typeof signInSchema>
-  ) => {
+  const handleCredentialsSignin = async (data: SignInFormData) => {
     const result = await signIn("credentials", {
       ...data,
       redirect: false,
@@ -138,15 +132,27 @@ const SignInForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="relative">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <input
                   className="w-full border border-slate-500 outline-none rounded p-2 focus:border-blue-600"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
                   {...field}
                 />
               </FormControl>
+              <button
+                type="button"
+                className="absolute right-3 top-8"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
               <FormMessage />
             </FormItem>
           )}

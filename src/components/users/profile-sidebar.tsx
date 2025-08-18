@@ -47,7 +47,9 @@ export const Profile = () => {
           )}
         </div>
         <p className="font-bold text-sm  md:text-lg text-blue-700">
-          {session?.user?.name ? session?.user.name : session?.user.email}
+          {session?.user?.name
+            ? session?.user.name
+            : session?.user.email?.split("@")[0]}
         </p>
       </div>
       {/* user details */}
