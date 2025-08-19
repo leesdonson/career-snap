@@ -16,24 +16,55 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import Loading from "@/app/(site)/jobseekers/loading";
+import { updateProfileInfo } from "@/actions/update-profile";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useUserProfile } from "@/contexts/users/user-context";
 
 const UpdateInfo = () => {
+  const { data: session } = useSession();
+  const { user } = useUserProfile();
+
+  if (!session) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   const date = new Date();
   const form = useForm<UpdateProfileInfo>({
     defaultValues: {
-      phone: "",
-      city: "",
-      country: "",
-      linkedin: "",
-      dateOfBirth: date,
-      address: "",
+      phone: user?.phone || "",
+      city: user?.city || "",
+      country: user?.country || "",
+      dateOfBirth: user?.dateOfBirth ? new Date(user?.dateOfBirth) : date,
+      address: user?.address || "",
     },
-    mode: "onBlur",
-    reValidateMode: "onChange",
+    // mode: "onBlur",
+    // reValidateMode: "onChange",
     resolver: zodResolver(updateProfileInfoSchema),
   });
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
+    const response = await updateProfileInfo(data);
+    if (response.success) {
+      form.reset();
+      toast.success("Profile updated successfully!", {
+        style: {
+          backgroundColor: "#f0f4f8",
+          color: "#333",
+        },
+      });
+    } else {
+      toast.error("Failed to update profile.", {
+        style: {
+          backgroundColor: "#c9080f",
+          color: "#ffffff",
+        },
+      });
+    }
   };
 
   const isSubmitting = form.formState.isSubmitting;

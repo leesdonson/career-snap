@@ -1,32 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Loading } from "@/components/ui/loading";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { CircleUser, Camera } from "lucide-react";
 import UpdateInfo from "./update-info";
 import { toast } from "sonner";
-
-// import { z } from "zod";
-
-// const fileSchema = z
-//   .instanceof(File)
-//   .refine((file) => file.type.startsWith("image/"), {
-//     message: "Please select a file",
-//   });
-
-// const formSchema = z.object({
-//   profileImage: z.string(fileSchema).optional(),
-// });
+import { updateUserBio, updateUserName } from "@/actions/update-profile";
+import { getUserDetails } from "@/actions/user-query";
+import { useUserProfile } from "@/contexts/users/user-context";
 
 export const PersonalInfo = () => {
+  const { data: session, status } = useSession();
+  const { setUser } = useUserProfile();
+
   const [name, setName] = useState("");
   const [editingName, setEditingName] = useState(false);
 
   const [uploading, setUploading] = useState(false);
-  // const [uploadFailed, setUploadFailed] = useState(false);
-  // const [uploadError, setUploadError] = useState(false);
 
   const [bio, setBio] = useState("");
   const [editingBio, setEditingBio] = useState(false);
@@ -34,12 +26,35 @@ export const PersonalInfo = () => {
   const [profileImage, setProfileImage] = useState<File[] | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [userImage, setUserImage] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (session?.user?.id) {
+        const user = await getUserDetails(session.user.id);
+        if (user) {
+          setUser(user);
+          setBio(user.bio || "");
+          setName(user.name || "");
+        } else {
+          console.error("No user session found");
+        }
+      }
+    };
+    fetchUserDetails();
+  }, [session?.user]);
 
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME; // Replace with your Cloudinary cloud name
+  if (status === "unauthenticated") return redirect("/auth/sign-in");
 
-  const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`; // Replace with your Cloudinary URL
+  if (status === "loading")
+    return (
+      <div className="flex items-center justify-center h-screen w-full">
+        <Loading />
+      </div>
+    );
 
-  console.log(name);
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+  const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     onChange: (file: string) => void
@@ -58,14 +73,13 @@ export const PersonalInfo = () => {
     const formData = new FormData();
 
     formData.append("file", images[0]);
-    formData.append("upload_preset", "career-snap"); // Replace with your upload preset
+    formData.append("upload_preset", "career-snap");
     const response = await fetch(cloudinaryUrl, {
       method: "POST",
       body: formData,
     });
     const data = await response.json();
-    return data; // Return the URL of the uploaded image
-    // console.log(data);
+    return data;
   };
 
   const onUpload = async () => {
@@ -83,8 +97,6 @@ export const PersonalInfo = () => {
       const response = await uploadImage(profileImage);
       if (!response) {
         setUploading(false);
-        // setUploadError(true);
-        // setUploadFailed(true);
         toast.error("No response from Cloudinary.", {
           style: {
             backgroundColor: "#c9080f",
@@ -116,27 +128,46 @@ export const PersonalInfo = () => {
     }
   };
 
-  const { data: session, status } = useSession();
-  if (status === "unauthenticated") return redirect("/auth/sign-in");
-
-  if (status === "loading")
-    return (
-      <div className="flex items-center justify-center h-screen w-full">
-        <Loading />
-      </div>
-    );
-  // console.log(session);
-  const updateName = (name: string) => {
+  const updateName = async () => {
     // Function to update the user's name
-    console.log("Updating name to:");
-    setName(name);
+    const response = await updateUserName(name);
+    if (response.success) {
+      toast.success("Name updated successfully!", {
+        style: {
+          backgroundColor: "#14db49",
+          color: "#ffffff",
+        },
+      });
+    } else {
+      toast.error("Failed to update name.", {
+        style: {
+          backgroundColor: "#db1e14",
+          color: "#ffffff",
+        },
+      });
+    }
+
     setEditingName(false);
   };
 
-  const updateBio = (bio: string) => {
+  const updateBio = async () => {
     // Function to update the user's name
-    console.log("Updating bio to:");
-    setBio(bio);
+    const response = await updateUserBio(bio);
+    if (response.success) {
+      toast.success("Bio updated successfully!", {
+        style: {
+          backgroundColor: "#14db49",
+          color: "#ffffff",
+        },
+      });
+    } else {
+      toast.error("Failed to update bio.", {
+        style: {
+          backgroundColor: "#db1e14",
+          color: "#ffffff",
+        },
+      });
+    }
     setEditingBio(false);
   };
 
@@ -201,9 +232,7 @@ export const PersonalInfo = () => {
           {editingName ? (
             <input
               value={name}
-              defaultValue={"unknown"}
               onChange={(e) => setName(e.target.value)}
-              onBlur={() => updateName(name)}
               className="outline-none border rounded px-1 focus:border-blue-600"
               type="text"
               autoFocus
@@ -217,7 +246,7 @@ export const PersonalInfo = () => {
         {editingName && (
           <button
             className="text-sm bg-green-500 p-1 rounded w-20"
-            onClick={() => updateName(name)}
+            onClick={updateName}
           >
             Save
           </button>
@@ -230,7 +259,6 @@ export const PersonalInfo = () => {
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              onBlur={() => updateBio(bio)}
               className="outline-none w-lg block resize-none border rounded px-1 focus:border-blue-600"
               autoFocus
             />
@@ -243,7 +271,7 @@ export const PersonalInfo = () => {
         {editingBio && (
           <button
             className="text-sm bg-green-500 p-1 rounded w-20"
-            onClick={() => updateBio(bio)}
+            onClick={updateBio}
           >
             Save
           </button>
